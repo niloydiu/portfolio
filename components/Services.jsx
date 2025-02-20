@@ -1,4 +1,4 @@
-import { assets, serviceData } from "@/assets/assets";
+import { serviceData } from "@/assets/assets";
 import { motion } from "motion/react";
 import Image from "next/image";
 
@@ -34,8 +34,9 @@ const Services = () => {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.7 }}
         >
-          En unu sxipo de pafilo iris. Min hejmon cxiuj la ne farmojn. Ni por
-          sur mi aluzi tion gxi. Por devas aux la kaj bani,.
+          Crafting dynamic and interactive user interfaces with ReactJS and
+          Next.js. I specialize in building responsive, high-performance web
+          applications using modern JavaScript frameworks and Tailwind CSS.
         </motion.p>
         <motion.div
           className="grid grid-cols-auto gap-6 my-10"
@@ -56,14 +57,14 @@ const Services = () => {
               <p className=" text-sm text-gray-600 leading-5 dark:text-white/80">
                 {description}
               </p>
-              <a href={link} className="flex items-center gap-2 text-sm mt-5">
+              {/* <a href={link} className="flex items-center gap-2 text-sm mt-5">
                 Read more...{" "}
                 <Image
                   src={assets.right_arrow}
                   className="w-4"
                   alt="right arrow"
                 />{" "}
-              </a>
+              </a> */}
             </motion.div>
           ))}
         </motion.div>

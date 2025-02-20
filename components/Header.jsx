@@ -34,7 +34,7 @@ const Header = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-3xl sm:text-6xl lg:text-[66px] font-Ovo"
         >
-          Frontend Web Developer based in Dhaka.
+          Frontend Web Developer.
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -42,8 +42,10 @@ const Header = () => {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="max-w-2xl mx-auto  font-Ovo"
         >
-          I am a frontend developer from Dhaka, Bangladesh with 2 years of
-          experience in JavaScript and React.
+          I specialize in creating modern and engaging web experiences using
+          JavaScript, ReactJS, Next.js, and Tailwind CSS. With two years of
+          hands-on experience, I'm passionate about building clean, efficient,
+          and user-friendly interfaces.
         </motion.p>
         <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
           <motion.a
@@ -64,7 +66,7 @@ const Header = () => {
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.2 }}
-            href="/sample-resume.pdf"
+            href="/niloy.pdf"
             download
             className="px-10 py-3 border rounded-full border-gray-500 flex items-center gap-2 bg-white dark:text-black"
           >

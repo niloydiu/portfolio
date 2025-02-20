@@ -1,5 +1,7 @@
+import api_icon from "./api_icon.png";
 import arrow_icon_dark from "./arrow-icon-dark.png";
 import arrow_icon from "./arrow-icon.png";
+import be_icon from "./be_icon.png";
 import close_black from "./close-black.png";
 import close_white from "./close-white.png";
 import code_icon_dark from "./code-icon-dark.png";
@@ -7,8 +9,10 @@ import code_icon from "./code-icon.png";
 import download_icon from "./download-icon.png";
 import edu_icon_dark from "./edu-icon-dark.png";
 import edu_icon from "./edu-icon.png";
+import fe_icon from "./fe_icon.png";
 import figma from "./figma.png";
 import firebase from "./firebase.png";
+import fs_icon from "./fs_icon.png";
 import git from "./git.png";
 import graphics_icon from "./graphics-icon.png";
 import hand_icon from "./hand-icon.png";
@@ -23,6 +27,10 @@ import menu_white from "./menu-white.png";
 import mobile_icon from "./mobile-icon.png";
 import mongodb from "./mongodb.png";
 import moon_icon from "./moon_icon.png";
+import ndemy1 from "./ndemy1.png";
+import nobot from "./nobot.png";
+import nqr from "./nqr.png";
+import nrl from "./nrl.png";
 import profile_img from "./profile-img.png";
 import profileNiloy from "./profileNiloy.png";
 import profileNiloyTP from "./profileNiloyTP.png";
@@ -42,6 +50,14 @@ import vscode from "./vscode.png";
 import web_icon from "./web-icon.png";
 
 export const assets = {
+  ndemy1,
+  nqr,
+  nrl,
+  nobot,
+  fe_icon,
+  be_icon,
+  api_icon,
+  fs_icon,
   user_image,
   userImageNiloySM,
   userImageNiloyMD,
@@ -53,6 +69,7 @@ export const assets = {
   project_icon_dark,
   vscode,
   firebase,
+  ndemy1,
   figma,
   git,
   logoNiloy,
@@ -88,52 +105,62 @@ export const assets = {
 
 export const workData = [
   {
-    title: "Frontend project",
-    description: "Web Design",
-    bgImage: "/work-1.png",
+    title: "LMS - Ndemy",
+    description: "Website",
+    bgImage: assets.ndemy1,
+    url: "https://ndemy-frontend.vercel.app/",
   },
   {
-    title: "Geo based app",
-    description: "Mobile App",
-    bgImage: "/work-2.png",
+    title: "QR Generator",
+    description: "Web App",
+    bgImage: assets.nqr,
+    url: "https://nqr.vercel.app/",
   },
   {
-    title: "Photography site",
-    description: "Web Design",
-    bgImage: "/work-3.png",
+    title: "Url shortener",
+    description: "Web App",
+    bgImage: assets.nrl,
+    url: "https://nrl-zeta.vercel.app/",
   },
   {
-    title: "UI/UX designing",
-    description: "UI/UX Design",
-    bgImage: "/work-4.png",
+    title: "AI Chatbot",
+    description: "Web App",
+    bgImage: assets.nobot,
+    url: "https://nobot.vercel.app/",
   },
 ];
 
 export const serviceData = [
   {
-    icon: assets.web_icon,
-    title: "Web design",
-    description: "Web development is the process of building, programming...",
-    link: "",
-  },
-  {
-    icon: assets.mobile_icon,
-    title: "Mobile app",
+    // icon: assets.web_icon,
+    icon: assets.fe_icon,
+    title: "Frontend Services",
     description:
-      "Mobile app development involves creating software for mobile devices...",
+      "React/Next.js interfaces: dynamic, responsive web experiences, user-centric design.",
     link: "",
   },
   {
-    icon: assets.ui_icon,
-    title: "UI/UX design",
+    // icon: assets.mobile_icon,
+    icon: assets.be_icon,
+    title: "Backend Services",
     description:
-      "UI/UX design focuses on creating a seamless user experience...",
+      "Node.js/Express servers: scalable, robust solutions, MongoDB database integration.",
     link: "",
   },
   {
-    icon: assets.graphics_icon,
-    title: "Graphics design",
-    description: "Creative design solutions to enhance visual communication...",
+    // icon: assets.ui_icon,
+    icon: assets.api_icon,
+    title: "API Development",
+    description:
+      "Express APIs: secure, efficient data exchange, seamless application connectivity.",
+    link: "",
+  },
+  {
+    // icon: assets.graphics_icon,
+    icon: assets.fs_icon,
+    title: "Full-Stack Web App",
+    description:
+      "MERN/Next.js apps: complete solutions, end-to-end development, seamless functionality.",
     link: "",
   },
 ];
