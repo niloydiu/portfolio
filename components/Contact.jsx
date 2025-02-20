@@ -41,7 +41,7 @@ const Contact = ({ isDarkMode }) => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className=" text-center mb-2 text-lg font-Ovo"
+          className=" text-center mb-2 text-lg font-montserrat"
         >
           Connect with me
         </motion.h4>
@@ -49,7 +49,7 @@ const Contact = ({ isDarkMode }) => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className=" text-center text-5xl font-Ovo"
+          className=" text-center text-5xl font-montserrat"
         >
           Get in touch
         </motion.h2>
@@ -57,10 +57,10 @@ const Contact = ({ isDarkMode }) => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className=" text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo"
+          className=" text-center max-w-2xl mx-auto mt-5 mb-12 font-montserrat"
         >
-          Ergreift halbverklungnen steigen der und erste erste. Freundliche mich
-          mögt welt menge noch getäuscht dem es schwankende. Ertönt die ihr.
+          Need a MERN stack or Next.js developer? Reach out to discuss your
+          frontend, backend, or full-stack web development needs.
         </motion.p>
         <motion.form
           initial={{ opacity: 0 }}

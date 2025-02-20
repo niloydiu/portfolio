@@ -13,7 +13,7 @@ const About = ({ isDarkMode }) => {
         transition={{ duration: 1 }}
       >
         <motion.h4
-          className="text-center mb-2 text-lg font-Ovo"
+          className="text-center mb-2 text-lg font-montserrat"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -21,7 +21,7 @@ const About = ({ isDarkMode }) => {
           Introduction
         </motion.h4>
         <motion.h2
-          className="text-center text-5xl font-Ovo"
+          className="text-center text-5xl font-montserrat"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -53,11 +53,13 @@ const About = ({ isDarkMode }) => {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            <p className="mb-10 max-w-2xl font-Ovo">
-              Brust deine blieb bist du so hast mutter zu einz'ges sanft.
-              Gesellschaft der klingt denkst verschwand, es ihr gar weh zürntest
-              spät um teuren schönen schnelle, an stillestehn sie ist vom du oft
-              der oft standest. O verwundert zu die der der du, seufzer du.
+            <p className="mb-10 max-w-2xl font-montserrat">
+              Hello, I'm a passionate Frontend and Full-Stack Web Developer
+              based in Dhaka, Bangladesh. With a strong foundation in
+              JavaScript, I specialize in building modern web applications using
+              ReactJS, Next.js, Node.js, Express, and MongoDB. I'm driven by a
+              desire to create impactful digital experiences and solve
+              real-world problems through clean, efficient code.
             </p>
             <motion.ul
               className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl"
@@ -86,7 +88,7 @@ const About = ({ isDarkMode }) => {
               ))}
             </motion.ul>
             <motion.h4
-              className=" my-6 text-gray-700 font-Ovo dark:text-white/80"
+              className=" my-6 text-gray-700 font-montserrat dark:text-white/80"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.3 }}

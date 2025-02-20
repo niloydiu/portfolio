@@ -13,7 +13,7 @@ const Work = (isDarkMode) => {
         transition={{ duration: 1 }}
       >
         <motion.h4
-          className=" text-center mb-2 text-lg font-Ovo"
+          className=" text-center mb-2 text-lg font-montserrat"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -21,7 +21,7 @@ const Work = (isDarkMode) => {
           My Portfolio
         </motion.h4>
         <motion.h2
-          className=" text-center text-5xl font-Ovo"
+          className=" text-center text-5xl font-montserrat"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -29,7 +29,7 @@ const Work = (isDarkMode) => {
           My Latest work
         </motion.h2>
         <motion.p
-          className=" text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo"
+          className=" text-center max-w-2xl mx-auto mt-5 mb-12 font-montserrat"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.7 }}

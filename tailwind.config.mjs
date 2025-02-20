@@ -31,8 +31,8 @@ const tailwindConfig = {
         darkTheme: "#11001F",
       },
       fontFamily: {
-        Outfit: ["Outfit", "sans-serif"],
-        Ovo: ["Ovo", "serif"],
+        montserrat: ["Montserrat", "sans-serif"],
+        lato: ["Lato", "sans-serif"],
       },
       boxShadow: {
         black: "4px 4px 0 #000",
