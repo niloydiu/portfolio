@@ -63,7 +63,8 @@ const Header = () => {
               className=" w-4"
             />
           </motion.a>
-          <motion.a
+          {/* Make this visible when I want to show resume  */}
+          {/* <motion.a
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.2 }}
@@ -77,7 +78,7 @@ const Header = () => {
               alt="right arrow button"
               className=" w-4"
             />
-          </motion.a>
+          </motion.a> */}
         </div>
       </div>
     </>
