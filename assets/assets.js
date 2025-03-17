@@ -14,6 +14,7 @@ import figma from "./figma.png";
 import firebase from "./firebase.png";
 import fs_icon from "./fs_icon.png";
 import git from "./git.png";
+import github from "./github.png";
 import graphics_icon from "./graphics-icon.png";
 import hand_icon from "./hand-icon.png";
 import header_bg_color from "./header-bg-color.png";
@@ -28,6 +29,7 @@ import mobile_icon from "./mobile-icon.png";
 import mongodb from "./mongodb.png";
 import moon_icon from "./moon_icon.png";
 import ndemy1 from "./ndemy1.png";
+import newcare from "./newcare.png";
 import nobot from "./nobot.png";
 import nqr from "./nqr.png";
 import nrl from "./nrl.png";
@@ -50,6 +52,8 @@ import vscode from "./vscode.png";
 import web_icon from "./web-icon.png";
 
 export const assets = {
+  newcare,
+  github,
   ndemy1,
   nqr,
   nrl,
@@ -105,28 +109,39 @@ export const assets = {
 
 export const workData = [
   {
+    title: "NewCare - Appointment",
+    description: "Web App",
+    bgImage: assets.newcare,
+    url: "https://newcare.vercel.app/",
+    github: "https://github.com/niloydiu/newcare",
+  },
+  {
     title: "LMS - Ndemy",
     description: "Website",
     bgImage: assets.ndemy1,
     url: "https://ndemy-frontend.vercel.app/",
+    github: "https://github.com/niloydiu/edemy",
   },
   {
     title: "QR Generator",
     description: "Web App",
     bgImage: assets.nqr,
     url: "https://nqr.vercel.app/",
+    github: "https://github.com/niloydiu/nqr",
   },
   {
     title: "Url shortener",
     description: "Web App",
     bgImage: assets.nrl,
     url: "https://nrl-zeta.vercel.app/",
+    github: "https://github.com/niloydiu/url",
   },
   {
     title: "AI Chatbot",
     description: "Web App",
     bgImage: assets.nobot,
     url: "https://nobot.vercel.app/",
+    github: "https://github.com/niloydiu/Nobot",
   },
 ];
 

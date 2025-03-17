@@ -16,7 +16,7 @@ const Header = () => {
             // src={assets.profileNiloy}
             src={assets.profileNiloyTP}
             alt="profile image"
-            className="rounded-full w-32"
+            className="rounded-full w-32 sm:mt-14"
           />
         </motion.div>
         <motion.h3
