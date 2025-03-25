@@ -17,6 +17,7 @@ import git from "./git.png";
 import github from "./github.png";
 import graphics_icon from "./graphics-icon.png";
 import hand_icon from "./hand-icon.png";
+import handsOn from "./handsOn.png";
 import header_bg_color from "./header-bg-color.png";
 import logo from "./logo.png";
 import logoNiloy from "./logoNiloy.png";
@@ -105,9 +106,17 @@ export const assets = {
   send_icon,
   right_arrow_bold,
   right_arrow_bold_dark,
+  handsOn,
 };
 
 export const workData = [
+  {
+    title: "Event Management",
+    description: "Web App",
+    bgImage: assets.handsOn,
+    url: "https://handsoncom.vercel.app/",
+    github: "https://github.com/niloydiu/roBenDevHandsOn.git",
+  },
   {
     title: "NewCare - Appointment",
     description: "Web App",
