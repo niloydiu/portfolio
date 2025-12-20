@@ -193,37 +193,37 @@ export const infoList = [
   {
     icon: assets.code_icon,
     iconDark: assets.code_icon_dark,
-    title: "Languages",
-    description: "HTML, CSS, JavaScript, C, C++",
+    title: "Frontend",
+    description: "React.js, Next.js, TypeScript, Tailwind CSS",
   },
   {
-    icon: assets.edu_icon,
-    iconDark: assets.edu_icon_dark,
-    title: "Education",
-    description: "BSc. in Computer Science & Engineering",
+    icon: assets.be_icon,
+    iconDark: assets.be_icon,
+    title: "Backend",
+    description: "Node.js, Express.js, Nest.js (Learning)",
   },
   {
-    icon: assets.project_icon,
-    iconDark: assets.project_icon_dark,
-    title: "Projects",
-    description: "Built more than 5 projects",
+    icon: assets.api_icon,
+    iconDark: assets.api_icon,
+    title: "Database",
+    description: "MongoDB, PostgreSQL (Learning)",
   },
 ];
 
 export const toolsData = [
   assets.vscode,
-  assets.firebase,
   assets.mongodb,
-  assets.figma,
   assets.git,
+  assets.github,
+  assets.figma,
 ];
 
 export const socialLinks = [
-  { name: "Github", url: "https://github.com/niloydiu" },
+  { name: "github", url: "https://github.com/niloydiu" },
   {
-    name: "LinkedIn",
+    name: "linkedin",
     url: "https://www.linkedin.com/in/niloykumarmohonta000/",
   },
-  { name: "Twitter (X)", url: "https://x.com/niloykmohonta" },
-  { name: "Facebook", url: "https://www.facebook.com/niloykumarmohonta000" },
+  { name: "twitter", url: "https://x.com/niloykmohonta" },
+  { name: "facebook", url: "https://www.facebook.com/niloykumarmohonta000" },
 ];

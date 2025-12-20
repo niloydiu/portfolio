@@ -1,5 +1,7 @@
 "use client";
+
 import About from "@/components/About";
+import Blog from "@/components/Blog";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -10,37 +12,43 @@ import { useEffect, useState } from "react";
 
 export default function Page() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+
   useEffect(() => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
+    // Check for saved theme preference or default to system preference
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
       setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
     } else {
       setIsDarkMode(false);
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
-      localStorage.theme = "dark";
+      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.theme = "";
+      localStorage.setItem("theme", "light");
     }
   }, [isDarkMode]);
 
   return (
-    <>
+    <div className="min-h-screen bg-background">
       <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-      <Header isDarkMode={isDarkMode} />
-      <About isDarkMode={isDarkMode} />
-      <Services isDarkMode={isDarkMode} />
-      <Work isDarkMode={isDarkMode} />
-      <Contact isDarkMode={isDarkMode} />
+      <main>
+        <Header isDarkMode={isDarkMode} />
+        <About isDarkMode={isDarkMode} />
+        <Services isDarkMode={isDarkMode} />
+        <Work isDarkMode={isDarkMode} />
+        <Blog />
+        <Contact isDarkMode={isDarkMode} />
+      </main>
       <Footer isDarkMode={isDarkMode} />
-    </>
+    </div>
   );
 }
