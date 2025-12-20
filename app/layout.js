@@ -1,50 +1,32 @@
-// import { Outfit as OutfitFont, Ovo as OvoFont } from "next/font/google";
-import {
-  Lato as LatoFont,
-  Montserrat as MontserratFont,
-} from "next/font/google";
-
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-// const outfit = OutfitFont({
-//   subsets: ["latin"],
-//   weight: ["400", "500", "600", "700"],
-// });
-
-// const ovo = OvoFont({
-//   subsets: ["latin"],
-//   weight: ["400"],
-// });
-
-const montserrat = MontserratFont({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "700"],
-});
-
-const lato = LatoFont({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+  variable: "--font-inter",
 });
 
 export const metadata = {
-  title: "Niloy's Portfolio",
-  description: "",
+  title: "Niloy's Portfolio - Frontend Developer",
+  description: "Modern portfolio showcasing frontend development skills with React, Next.js, and modern web technologies.",
+  keywords: ["frontend developer", "react", "next.js", "portfolio", "web development"],
+  authors: [{ name: "Niloy" }],
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.png" />
-        <title>Niloy&apos;s Portfolio</title>
       </head>
-      {/* <body
-        className={`${outfit.className} ${ovo.className} antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
-      >
-        {children}
-      </body> */}
       <body
-        className={`${montserrat.className} ${lato.className} antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
+        className={`${inter.variable} font-sans antialiased overflow-x-hidden`}
+        suppressHydrationWarning
       >
         {children}
       </body>
