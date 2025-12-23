@@ -31,6 +31,7 @@ import mongodb from "./mongodb.png";
 import moon_icon from "./moon_icon.png";
 import ndemy1 from "./ndemy1.png";
 import newcare from "./newcare.png";
+import niloyinventory from "./niloyinventory.png";
 import nobot from "./nobot.png";
 import nqr from "./nqr.png";
 import nrl from "./nrl.png";
@@ -56,6 +57,7 @@ export const assets = {
   newcare,
   github,
   ndemy1,
+  niloyinventory,
   nqr,
   nrl,
   nobot,
@@ -151,6 +153,13 @@ export const workData = [
     bgImage: assets.nobot,
     url: "https://nobot.vercel.app/",
     github: "https://github.com/niloydiu/Nobot",
+  },
+  {
+    title: "Inventory Management",
+    description: "Web App",
+    bgImage: assets.niloyinventory,
+    url: "https://niloyinventory.vercel.app/login",
+    github: "https://github.com/niloydiu/inventory.git",
   },
 ];
 
