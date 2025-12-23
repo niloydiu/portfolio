@@ -93,7 +93,7 @@ const Work = ({ isDarkMode }) => {
               style={{ backgroundImage: `url(${project.bgImage.src})` }}
             >
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent opacity-75 group-hover:opacity-85 transition-opacity duration-500 backdrop-blur-[0.5px]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent opacity-75 group-hover:opacity-85 transition-opacity duration-500 backdrop-blur-[0.5px] pointer-events-none" />
 
               {/* Content */}
               <div className="absolute inset-0 p-6 flex flex-col justify-end">
@@ -119,7 +119,7 @@ const Work = ({ isDarkMode }) => {
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md text-white rounded-lg hover:bg-white/30 transition-all duration-300 group/btn"
+                      className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md text-white rounded-lg hover:bg-white/30 transition-all duration-300 group/btn pointer-events-auto"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -134,7 +134,7 @@ const Work = ({ isDarkMode }) => {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md text-white rounded-lg hover:bg-white/30 transition-all duration-300 group/btn"
+                      className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md text-white rounded-lg hover:bg-white/30 transition-all duration-300 group/btn pointer-events-auto"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -147,26 +147,23 @@ const Work = ({ isDarkMode }) => {
               </div>
 
               {/* Hover effect border */}
-              <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-white/50 transition-all duration-500" />
+              <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-white/50 transition-all duration-500 pointer-events-none" />
             </motion.div>
           ))}
         </motion.div>
 
         {/* Call to action */}
-        <motion.div
-          className="text-center mt-16"
-          variants={itemVariants}
-        >
+        <motion.div className="text-center mt-16" variants={itemVariants}>
           <motion.div
             className="inline-flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-          onClick={() => {
-            const el = document.getElementById('contact');
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
+            onClick={() => {
+              const el = document.getElementById("contact");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
           >
             <span>Let's build something amazing</span>
             <ExternalLink className="w-5 h-5" />
