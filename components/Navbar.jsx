@@ -86,10 +86,10 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         variants={navVariants}
         initial="hidden"
         animate="visible"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-800"
-            : "bg-transparent"
+            ? "bg-white/70 dark:bg-gray-950/70 backdrop-blur-md border-b border-blue-500/20 dark:border-purple-500/25 shadow-[0_4px_30px_rgba(0,0,0,0.03)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
+            : "bg-transparent border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

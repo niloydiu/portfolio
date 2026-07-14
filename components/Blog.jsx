@@ -64,12 +64,11 @@ const Blog = () => {
   ];
 
   return (
-    <section id="blog" className="py-20 px-6 lg:px-12 scroll-mt-20 relative">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-teal-100/15 to-cyan-100/15 dark:from-teal-400/10 dark:to-cyan-400/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br from-indigo-100/15 to-blue-100/15 dark:from-indigo-400/10 dark:to-blue-400/10 rounded-full blur-3xl" />
-      </div>
+    <section id="blog" className="py-20 px-6 lg:px-12 scroll-mt-20 relative overflow-hidden">
+      {/* Background decoration with cyber-grid */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-gray-900 dark:to-slate-950 cyber-grid" />
+      <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-teal-100/15 to-cyan-100/15 dark:from-teal-500/10 dark:to-cyan-500/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-br from-indigo-100/15 to-blue-100/15 dark:from-indigo-500/10 dark:to-blue-500/10 rounded-full blur-3xl" />
 
       <motion.div
         className="max-w-6xl mx-auto relative z-10"
@@ -108,7 +107,7 @@ const Blog = () => {
           >
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 p-8 rounded-2xl border border-teal-200 dark:border-teal-800 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="glass-card neon-border-glow cyber-corner p-8 rounded-2xl cursor-pointer"
             >
               <div className="flex flex-col lg:flex-row lg:items-center gap-6">
                 <div className="flex-1">
@@ -166,8 +165,8 @@ const Blog = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -5 }}
-              className="bg-white dark:bg-gray-800/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              className="glass-card neon-border-glow cyber-corner p-6 rounded-2xl cursor-pointer group"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
