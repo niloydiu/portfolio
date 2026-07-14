@@ -1,0 +1,47 @@
+const { test, expect } = require('@playwright/test');
+
+test.describe('Portfolio Website Tests', () => {
+  test('should load the homepage and check elements', async ({ page }) => {
+    // Navigate to homepage
+    await page.goto('/');
+
+    // Check page title
+    await expect(page).toHaveTitle(/Niloy's Portfolio/);
+
+    // Verify main components are present
+    await expect(page.locator('#top')).toBeVisible();
+    await expect(page.locator('#about')).toBeVisible();
+    await expect(page.locator('#services')).toBeVisible();
+    await expect(page.locator('#work')).toBeVisible();
+    await expect(page.locator('#contact')).toBeVisible();
+  });
+
+  test('should toggle dark/light mode successfully', async ({ page }) => {
+    await page.goto('/');
+
+    // Locate theme toggle button (button inside nav containing Lucide icons or clicking it)
+    const toggleButton = page.locator('nav button').first();
+    await expect(toggleButton).toBeVisible();
+
+    // Check initial dark mode state on html tag
+    const htmlElement = page.locator('html');
+    const initialClass = await htmlElement.getAttribute('class');
+    
+    // Toggle theme
+    await toggleButton.click();
+    await page.waitForTimeout(500);
+
+    const toggledClass = await htmlElement.getAttribute('class');
+    expect(toggledClass).not.toBe(initialClass);
+  });
+
+  test('should verify projects in Work section do not have Github source code buttons', async ({ page }) => {
+    await page.goto('/');
+
+    // Ensure Github icon link is NOT inside the project action container in the Work section
+    // The link should only be Live Demo
+    const githubLink = page.locator('#work a[href*="github.com"]');
+    const count = await githubLink.count();
+    expect(count).toBe(0);
+  });
+});

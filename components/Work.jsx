@@ -125,22 +125,6 @@ const Work = ({ isDarkMode }) => {
                     >
                       <Eye className="w-4 h-4" />
                       <span className="text-sm font-medium">Live Demo</span>
-                      <ExternalLink className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform" />
-                    </motion.a>
-                  )}
-
-                  {project.github && (
-                    <motion.a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md text-white rounded-lg hover:bg-white/30 transition-all duration-300 group/btn pointer-events-auto"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Github className="w-4 h-4" />
-                      <span className="text-sm font-medium">Code</span>
-                      <ExternalLink className="w-3 h-3 group-hover/btn:translate-x-0.5 transition-transform" />
                     </motion.a>
                   )}
                 </motion.div>

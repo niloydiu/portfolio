@@ -67,11 +67,10 @@ const Contact = ({ isDarkMode }) => {
   };
 
   return (
-    <section id="contact" className="py-20 px-6 lg:px-12 scroll-mt-20 relative">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-indigo-100/10 via-purple-100/10 to-pink-100/10 dark:from-indigo-400/10 dark:via-purple-400/10 dark:to-pink-400/10 rounded-full blur-3xl" />
-      </div>
+    <section id="contact" className="py-20 px-6 lg:px-12 scroll-mt-20 relative overflow-hidden">
+      {/* Background decoration with cyber-grid */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-gray-900 dark:to-slate-950 cyber-grid" />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-indigo-100/10 via-purple-100/10 to-pink-100/10 dark:from-indigo-500/10 dark:via-purple-500/10 dark:to-pink-500/10 rounded-full blur-3xl animate-pulse" />
 
       <motion.div
         className="max-w-4xl mx-auto relative z-10"
@@ -108,7 +107,7 @@ const Contact = ({ isDarkMode }) => {
           className="max-w-2xl mx-auto"
           variants={containerVariants}
         >
-          <div className="bg-white dark:bg-gray-800/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+          <div className="glass-card neon-border-glow cyber-corner p-8 rounded-2xl">
             {/* Name and Email Fields */}
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <motion.div variants={itemVariants}>
@@ -117,7 +116,7 @@ const Contact = ({ isDarkMode }) => {
                   type="text"
                   placeholder="Your name"
                   required
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 bg-white/50 dark:bg-slate-950/40 border border-slate-300/50 dark:border-slate-800/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 dark:text-white dark:placeholder-slate-500"
                 />
               </motion.div>
 
@@ -127,7 +126,7 @@ const Contact = ({ isDarkMode }) => {
                   type="email"
                   placeholder="Your email"
                   required
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 bg-white/50 dark:bg-slate-950/40 border border-slate-300/50 dark:border-slate-800/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 dark:text-white dark:placeholder-slate-500"
                 />
               </motion.div>
             </div>
@@ -139,7 +138,7 @@ const Contact = ({ isDarkMode }) => {
                 rows={5}
                 placeholder="Tell me about your project..."
                 required
-                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300 resize-none"
+                className="w-full px-4 py-3 bg-white/50 dark:bg-slate-950/40 border border-slate-300/50 dark:border-slate-800/80 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300 resize-none dark:text-white dark:placeholder-slate-500"
               />
             </motion.div>
 
@@ -148,11 +147,11 @@ const Contact = ({ isDarkMode }) => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className={`px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium rounded-lg transition-all duration-300 ${
-                  isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-slate-800 dark:hover:bg-gray-100'
+                className={`px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] text-white font-semibold rounded-lg transition-all duration-300 ${
+                  isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
                 }`}
-                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                whileHover={!isSubmitting ? { scale: 1.05 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.95 } : {}}
               >
                 {isSubmitting ? (
                   <>

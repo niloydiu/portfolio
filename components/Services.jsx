@@ -42,12 +42,11 @@ const Services = () => {
   };
 
   return (
-    <section id="services" className="py-20 px-6 lg:px-12 scroll-mt-20 relative">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-100/15 to-cyan-100/15 dark:from-cyan-400/10 dark:to-blue-400/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-br from-indigo-100/15 to-purple-100/15 dark:from-purple-400/10 dark:to-pink-400/10 rounded-full blur-3xl" />
-      </div>
+    <section id="services" className="py-20 px-6 lg:px-12 scroll-mt-20 relative overflow-hidden">
+      {/* Background decoration with cyber-grid */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-gray-900 dark:to-slate-950 cyber-grid" />
+      <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-100/15 to-cyan-100/15 dark:from-cyan-500/10 dark:to-blue-500/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-br from-indigo-100/15 to-purple-100/15 dark:from-purple-500/10 dark:to-pink-500/10 rounded-full blur-3xl" />
 
       <motion.div
         className="max-w-7xl mx-auto relative z-10"
@@ -89,14 +88,13 @@ const Services = () => {
               key={index}
               variants={cardVariants}
               whileHover={{
-                scale: 1.02,
-                y: -4,
+                scale: 1.05,
               }}
-              className="bg-white dark:bg-gray-800/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 group"
+              className="glass-card neon-border-glow cyber-corner p-6 rounded-2xl cursor-pointer group"
             >
               {/* Icon */}
               <motion.div
-                className="mb-4 p-2 bg-gray-100 dark:bg-gray-700 rounded-lg w-fit group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50 transition-colors duration-300"
+                className="mb-4 p-2 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-lg w-fit group-hover:scale-110 transition-transform duration-300"
               >
                 <Image
                   src={icon}

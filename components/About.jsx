@@ -42,12 +42,11 @@ const About = ({ isDarkMode }) => {
   };
 
   return (
-    <section id="about" className="py-20 px-6 lg:px-12 scroll-mt-20 relative">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-100/20 to-indigo-100/20 dark:from-blue-400/10 dark:to-purple-400/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-100/15 to-pink-100/15 dark:from-pink-400/10 dark:to-orange-400/10 rounded-full blur-3xl" />
-      </div>
+    <section id="about" className="py-20 px-6 lg:px-12 scroll-mt-20 relative overflow-hidden">
+      {/* Background decoration with cyber-grid */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-gray-900 dark:to-slate-950 cyber-grid" />
+      <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-100/20 to-indigo-100/20 dark:from-blue-500/10 dark:to-purple-500/10 rounded-full blur-3xl" />
+      <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-100/15 to-pink-100/15 dark:from-pink-500/10 dark:to-orange-500/10 rounded-full blur-3xl" />
 
       <motion.div
         className="max-w-7xl mx-auto relative z-10"
@@ -79,12 +78,12 @@ const About = ({ isDarkMode }) => {
             whileHover={{ scale: 1.02 }}
             className="lg:col-span-1 flex justify-center lg:justify-start"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-slate-300 dark:bg-slate-600 rounded-2xl blur-lg opacity-20" />
+            <div className="relative cyber-corner p-2">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500 to-purple-600 rounded-2xl blur-md opacity-25 dark:opacity-40" />
               <Image
                 src={assets.userImageNiloySM}
                 alt="Niloy's profile"
-                className="relative w-full max-w-xs mx-auto rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
+                className="relative w-full max-w-xs mx-auto rounded-2xl shadow-2xl border border-blue-500/20 dark:border-purple-500/20"
                 priority
               />
             </div>
@@ -110,13 +109,13 @@ const About = ({ isDarkMode }) => {
               className="grid grid-cols-2 gap-4"
               variants={itemVariants}
             >
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">36</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Public Repos</div>
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 p-4 rounded-xl border border-blue-500/20 dark:border-blue-500/10 shadow-[0_2px_15px_rgba(59,130,246,0.05)]">
+                <div className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mb-1">36</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Public Repos</div>
               </div>
-              <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-4 rounded-xl border border-green-100 dark:border-green-800">
-                <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">2+</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/10 dark:to-pink-900/10 p-4 rounded-xl border border-purple-500/20 dark:border-purple-500/10 shadow-[0_2px_15px_rgba(168,85,247,0.05)]">
+                <div className="text-2xl font-extrabold text-purple-600 dark:text-purple-400 mb-1">2+</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Years Experience</div>
               </div>
             </motion.div>
 
@@ -131,18 +130,17 @@ const About = ({ isDarkMode }) => {
                   variants={cardVariants}
                   whileHover={{
                     scale: 1.05,
-                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
                   }}
-                  className="glass-card p-6 rounded-2xl hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                  className="glass-card neon-border-glow cyber-corner p-6 rounded-2xl cursor-pointer group"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                  <Image
-                    src={isDarkMode ? iconDark : icon}
-                    alt={title}
-                      className="w-6 h-6"
-                  />
-                  </div>
+                    <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                      <Image
+                        src={isDarkMode ? iconDark : icon}
+                        alt={title}
+                        className="w-6 h-6"
+                      />
+                    </div>
                   </div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
                     {title}
