@@ -20,6 +20,7 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState("projects");
   const [statusMessage, setStatusMessage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imageUploadLoading, setImageUploadLoading] = useState(false);
 
   // Edit / Add Item States
   const [editingId, setEditingId] = useState(null);
@@ -27,6 +28,7 @@ export default function AdminPage() {
     title: "",
     description: "Web App",
     bgImageName: "handsOn",
+    bgImage: "", // Custom Cloudinary URL string
     url: "",
     github: ""
   });
@@ -127,6 +129,7 @@ export default function AdminPage() {
       title: "",
       description: "Web App",
       bgImageName: "handsOn",
+      bgImage: "",
       url: "",
       github: ""
     });
@@ -138,6 +141,42 @@ export default function AdminPage() {
   };
 
   // CRUD: Projects
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setImageUploadLoading(true);
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dniloy";
+    const preset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "portfolio_unsigned";
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", preset);
+
+    try {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+        method: "POST",
+        body: formData
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setProjectForm(prev => ({
+          ...prev,
+          bgImage: data.secure_url,
+          bgImageName: "" // clear fallback
+        }));
+        showStatus("success", "Image uploaded successfully to Cloudinary.");
+      } else {
+        const errData = await res.json();
+        showStatus("error", errData.error?.message || "Cloudinary upload failed. Check credentials.");
+      }
+    } catch {
+      showStatus("error", "Network connection to Cloudinary failed.");
+    } finally {
+      setImageUploadLoading(false);
+    }
+  };
+
   const handleAddProject = (e) => {
     e.preventDefault();
     if (!projectForm.title) return;
@@ -158,6 +197,7 @@ export default function AdminPage() {
       title: item.title,
       description: item.description || "Web App",
       bgImageName: item.bgImageName || "handsOn",
+      bgImage: item.bgImage || "",
       url: item.url || "",
       github: item.github || ""
     });
@@ -428,12 +468,14 @@ export default function AdminPage() {
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1.5">Background Image Name</label>
+                      <label className="block text-[10px] font-mono text-slate-400 uppercase mb-1.5">Background Image Source</label>
                       <select 
                         value={projectForm.bgImageName}
-                        onChange={(e) => setProjectForm({ ...projectForm, bgImageName: e.target.value })}
-                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500/50 cursor-pointer"
+                        onChange={(e) => setProjectForm({ ...projectForm, bgImageName: e.target.value, bgImage: "" })}
+                        disabled={!!projectForm.bgImage}
+                        className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500/50 cursor-pointer disabled:opacity-50"
                       >
+                        <option value="">-- Choose local asset fallback --</option>
                         <option value="handsOn">handsOn (Event Management)</option>
                         <option value="newcare">newcare (Appointment)</option>
                         <option value="ndemy1">ndemy1 (Ndemy LMS)</option>
@@ -442,7 +484,42 @@ export default function AdminPage() {
                         <option value="nobot">nobot (AI Chatbot)</option>
                         <option value="niloyinventory">niloyinventory (Inventory)</option>
                       </select>
-                      <p className="text-[10px] text-slate-500 mt-1 font-mono uppercase">Must match visual assets mappings.</p>
+
+                      <div className="relative my-3 flex items-center justify-center">
+                        <div className="border-t border-slate-800 w-full" />
+                        <span className="absolute bg-slate-950 px-3 text-[10px] font-mono text-slate-500 uppercase">OR</span>
+                      </div>
+
+                      {/* Cloudinary Drag-and-drop / File upload zone */}
+                      <div className="border border-dashed border-slate-800 rounded p-4 text-center hover:border-blue-500/50 transition-colors cursor-pointer relative bg-slate-900/30">
+                        <input 
+                          type="file" 
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                          disabled={imageUploadLoading}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        {imageUploadLoading ? (
+                          <div className="text-xs text-blue-400 font-mono animate-pulse uppercase">Uploading to Cloudinary...</div>
+                        ) : projectForm.bgImage ? (
+                          <div className="space-y-2">
+                            <p className="text-[10px] text-emerald-400 font-mono uppercase font-bold">✔ Cloudinary link attached</p>
+                            <p className="text-xs text-slate-400 truncate max-w-[200px] mx-auto">{projectForm.bgImage}</p>
+                            <button
+                              type="button"
+                              onClick={() => setProjectForm({ ...projectForm, bgImage: "", bgImageName: "handsOn" })}
+                              className="text-[10px] text-red-400 hover:text-red-300 font-mono uppercase underline z-10 relative"
+                            >
+                              Remove link
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="space-y-1 text-slate-400">
+                            <p className="text-xs">Upload custom project image</p>
+                            <p className="text-[9px] text-slate-500 font-mono uppercase">Directly to Cloudinary</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
 
                     <div>
@@ -506,7 +583,7 @@ export default function AdminPage() {
                           <div className="flex items-center gap-3 mt-1 text-[11px] text-slate-500 font-mono uppercase">
                             <span>{item.description}</span>
                             <span>•</span>
-                            <span className="text-slate-400">{item.bgImageName}</span>
+                            <span className="text-slate-400">{item.bgImageName || "Cloudinary Image"}</span>
                           </div>
                         </div>
 

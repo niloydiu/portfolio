@@ -85,7 +85,7 @@ const Work = ({ isDarkMode, workData }) => {
           variants={containerVariants}
         >
           {workData && workData.map((project, index) => {
-            const projectBg = project.bgImage?.src || assets[project.bgImageName]?.src || assets.handsOn.src;
+            const projectBg = (typeof project.bgImage === 'string' ? project.bgImage : project.bgImage?.src) || assets[project.bgImageName]?.src || assets.handsOn.src;
             return (
               <motion.div
                 key={index}

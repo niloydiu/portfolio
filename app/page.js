@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import Services from "@/components/Services";
 import Work from "@/components/Work";
+import CyberParticles from "@/components/CyberParticles";
 import { useEffect, useState } from "react";
 import { workData as staticWork, serviceData as staticService, infoList as staticInfo } from "@/assets/assets";
 
@@ -55,7 +56,8 @@ export default function Page() {
   }, [isDarkMode]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <CyberParticles />
       <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <main>
         <Header isDarkMode={isDarkMode} />
