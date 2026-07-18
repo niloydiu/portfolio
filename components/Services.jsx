@@ -1,11 +1,11 @@
 "use client";
 
-import { serviceData } from "@/assets/assets";
+import { assets } from "@/assets/assets";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Sparkles, ArrowRight } from "lucide-react";
 
-const Services = () => {
+const Services = ({ isDarkMode, serviceData }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -83,37 +83,40 @@ const Services = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
           variants={containerVariants}
         >
-          {serviceData.map(({ icon, title, description, link }, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              whileHover={{
-                scale: 1.05,
-              }}
-              className="glass-card neon-border-glow cyber-corner p-6 rounded-2xl cursor-pointer group"
-            >
-              {/* Icon */}
+          {serviceData && serviceData.map(({ icon, iconName, title, description, link }, index) => {
+            const serviceIcon = icon || assets[iconName] || assets.fe_icon;
+            return (
               <motion.div
-                className="mb-4 p-2 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-lg w-fit group-hover:scale-110 transition-transform duration-300"
+                key={index}
+                variants={cardVariants}
+                whileHover={{
+                  scale: 1.05,
+                }}
+                className="glass-card neon-border-glow cyber-corner p-6 rounded-2xl cursor-pointer group"
               >
-                <Image
-                  src={icon}
-                  alt={title}
-                  className="w-6 h-6 filter brightness-0 dark:brightness-100"
-                />
+                {/* Icon */}
+                <motion.div
+                  className="mb-4 p-2 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-lg w-fit group-hover:scale-110 transition-transform duration-300"
+                >
+                  <Image
+                    src={serviceIcon}
+                    alt={title}
+                    className="w-6 h-6 filter brightness-0 dark:brightness-100"
+                  />
+                </motion.div>
+
+                {/* Title */}
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  {title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {description}
+                </p>
               </motion.div>
-
-              {/* Title */}
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                {title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                {description}
-              </p>
-            </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
 
         {/* Call to action */}

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ExternalLink, Github, Eye, Briefcase } from "lucide-react";
 
-const Work = ({ isDarkMode }) => {
+const Work = ({ isDarkMode, workData }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -84,14 +84,16 @@ const Work = ({ isDarkMode }) => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
           variants={containerVariants}
         >
-          {workData.map((project, index) => (
-            <motion.div
-              key={index}
-              variants={projectVariants}
-              whileHover={{ scale: 1.02, y: -8 }}
-              className="group relative overflow-hidden rounded-2xl bg-cover bg-center aspect-[4/3] shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer border border-white/10"
-              style={{ backgroundImage: `url(${project.bgImage.src})` }}
-            >
+          {workData && workData.map((project, index) => {
+            const projectBg = project.bgImage?.src || assets[project.bgImageName]?.src || assets.handsOn.src;
+            return (
+              <motion.div
+                key={index}
+                variants={projectVariants}
+                whileHover={{ scale: 1.02, y: -8 }}
+                className="group relative overflow-hidden rounded-2xl bg-cover bg-center aspect-[4/3] shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer border border-white/10"
+                style={{ backgroundImage: `url(${projectBg})` }}
+              >
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent opacity-75 group-hover:opacity-85 transition-opacity duration-500 backdrop-blur-[0.5px] pointer-events-none" />
 
@@ -133,7 +135,8 @@ const Work = ({ isDarkMode }) => {
               {/* Hover effect border */}
               <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-white/50 transition-all duration-500 pointer-events-none" />
             </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
 
         {/* Call to action */}

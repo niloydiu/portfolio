@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Code, Palette, Zap } from "lucide-react";
 
-const About = ({ isDarkMode }) => {
+const About = ({ isDarkMode, infoList: propInfoList }) => {
+  const displayInfoList = propInfoList || infoList;
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -124,24 +125,28 @@ const About = ({ isDarkMode }) => {
               className="grid grid-cols-1 sm:grid-cols-3 gap-4"
               variants={containerVariants}
             >
-              {infoList.map(({ icon, iconDark, title, description }, index) => (
-                <motion.div
-                  key={index}
-                  variants={cardVariants}
-                  whileHover={{
-                    scale: 1.05,
-                  }}
-                  className="glass-card neon-border-glow cyber-corner p-6 rounded-2xl cursor-pointer group"
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                      <Image
-                        src={isDarkMode ? iconDark : icon}
-                        alt={title}
-                        className="w-6 h-6"
-                      />
+              {displayInfoList && displayInfoList.map(({ icon, iconDark, iconName, iconDarkName, title, description }, index) => {
+                const activeIcon = isDarkMode 
+                  ? (iconDark || assets[iconDarkName] || assets.code_icon_dark) 
+                  : (icon || assets[iconName] || assets.code_icon);
+                return (
+                  <motion.div
+                    key={index}
+                    variants={cardVariants}
+                    whileHover={{
+                      scale: 1.05,
+                    }}
+                    className="glass-card neon-border-glow cyber-corner p-6 rounded-2xl cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                        <Image
+                          src={activeIcon}
+                          alt={title}
+                          className="w-6 h-6"
+                        />
+                      </div>
                     </div>
-                  </div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
                     {title}
                   </h3>
@@ -149,7 +154,8 @@ const About = ({ isDarkMode }) => {
                     {description}
                   </p>
                 </motion.div>
-              ))}
+                );
+              })}
             </motion.div>
 
             {/* Skills Section */}

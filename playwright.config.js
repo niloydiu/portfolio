@@ -3,6 +3,7 @@ const { defineConfig, devices } = require('@playwright/test');
 module.exports = defineConfig({
   testDir: './tests',
   fullyParallel: true,
+  timeout: 60000, // 60s individual test timeout
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
@@ -21,6 +22,6 @@ module.exports = defineConfig({
     command: 'cmd /c npm run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: true,
-    timeout: 30000,
+    timeout: 90000,
   },
 });

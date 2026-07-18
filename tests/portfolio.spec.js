@@ -44,4 +44,20 @@ test.describe('Portfolio Website Tests', () => {
     const count = await githubLink.count();
     expect(count).toBe(0);
   });
+
+  test('should secure admin page and show error on invalid password login', async ({ page }) => {
+    await page.goto('/admin');
+
+    // Check secure gateway heading (wait for compilation if needed)
+    await expect(page.locator('h2')).toContainText('SECURE_GATEWAY', { timeout: 20000 });
+
+    // Attempt login with wrong password
+    await page.locator('input[type="password"]').fill('incorrect_password');
+    await page.locator('button[type="submit"]').click();
+
+    // Verify error message renders
+    const errorMessage = page.locator('.bg-red-950\\/40');
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toContainText('Invalid password');
+  });
 });
