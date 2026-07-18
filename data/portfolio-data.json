@@ -1,0 +1,115 @@
+{
+  "workData": [
+    {
+      "id": "1",
+      "title": "Event Management",
+      "description": "Web App",
+      "bgImageName": "handsOn",
+      "url": "https://handsoncom.vercel.app/",
+      "github": "https://github.com/niloydiu/roBenDevHandsOn.git"
+    },
+    {
+      "id": "2",
+      "title": "NewCare - Appointment",
+      "description": "Web App",
+      "bgImageName": "newcare",
+      "url": "https://newcare.vercel.app/",
+      "github": "https://github.com/niloydiu/newcare"
+    },
+    {
+      "id": "3",
+      "title": "LMS - Ndemy",
+      "description": "Website",
+      "bgImageName": "ndemy1",
+      "url": "https://ndemy-frontend.vercel.app/",
+      "github": "https://github.com/niloydiu/edemy"
+    },
+    {
+      "id": "4",
+      "title": "QR Generator",
+      "description": "Web App",
+      "bgImageName": "nqr",
+      "url": "https://nqr.vercel.app/",
+      "github": "https://github.com/niloydiu/nqr"
+    },
+    {
+      "id": "5",
+      "title": "Url shortener",
+      "description": "Web App",
+      "bgImageName": "nrl",
+      "url": "https://nrl-zeta.vercel.app/",
+      "github": "https://github.com/niloydiu/url"
+    },
+    {
+      "id": "6",
+      "title": "AI Chatbot",
+      "description": "Web App",
+      "bgImageName": "nobot",
+      "url": "https://nobot.vercel.app/",
+      "github": "https://github.com/niloydiu/Nobot"
+    },
+    {
+      "id": "7",
+      "title": "Inventory Management",
+      "description": "Web App",
+      "bgImageName": "niloyinventory",
+      "url": "https://niloyinventory.vercel.app/login",
+      "github": "https://github.com/niloydiu/inventory.git"
+    }
+  ],
+  "serviceData": [
+    {
+      "id": "1",
+      "iconName": "fe_icon",
+      "title": "Frontend Services",
+      "description": "React/Next.js interfaces: dynamic, responsive web experiences, user-centric design."
+    },
+    {
+      "id": "2",
+      "iconName": "be_icon",
+      "title": "Backend Services",
+      "description": "Node.js/Express servers: scalable, robust solutions, MongoDB database integration."
+    },
+    {
+      "id": "3",
+      "iconName": "api_icon",
+      "title": "API Development",
+      "description": "Express APIs: secure, efficient data exchange, seamless application connectivity."
+    },
+    {
+      "id": "4",
+      "iconName": "fs_icon",
+      "title": "Full-Stack Web App",
+      "description": "MERN/Next.js apps: complete solutions, end-to-end development, seamless functionality."
+    }
+  ],
+  "infoList": [
+    {
+      "id": "1",
+      "iconName": "code_icon",
+      "iconDarkName": "code_icon_dark",
+      "title": "Frontend",
+      "description": "React.js, Next.js, TypeScript, Tailwind CSS"
+    },
+    {
+      "id": "2",
+      "iconName": "be_icon",
+      "iconDarkName": "be_icon",
+      "title": "Backend",
+      "description": "Node.js, Express.js, Nest.js (Learning)"
+    },
+    {
+      "id": "3",
+      "iconName": "api_icon",
+      "iconDarkName": "api_icon",
+      "title": "Database",
+      "description": "MongoDB, PostgreSQL (Learning)"
+    }
+  ],
+  "socialLinks": [
+    { "name": "github", "url": "https://github.com/niloydiu" },
+    { "name": "linkedin", "url": "https://www.linkedin.com/in/niloykumarmohonta000/" },
+    { "name": "twitter", "url": "https://x.com/niloykmohonta" },
+    { "name": "facebook", "url": "https://www.facebook.com/niloykumarmohonta000" }
+  ]
+}
