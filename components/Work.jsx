@@ -108,9 +108,9 @@ const Work = ({ isDarkMode, workData }) => {
           <AnimatePresence>
             {filteredProjects.map((project, index) => {
               const projectImg =
-                (typeof project.bgImage === "string" ? project.bgImage : project.bgImage?.src) ||
-                assets[project.bgImageName]?.src ||
-                assets.handsOn.src;
+                project.bgImage ||
+                (project.bgImageName && assets[project.bgImageName]) ||
+                assets.handsOn;
 
               return (
                 <motion.div

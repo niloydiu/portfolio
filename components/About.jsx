@@ -27,19 +27,25 @@ import { fadeUp, scaleIn, staggerContainer } from "@/lib/motion";
 
 const About = ({ isDarkMode, infoList: propInfoList }) => {
   const [timeString, setTimeString] = useState("");
+  const [mounted, setMounted] = useState(false);
   const [activeConsole, setActiveConsole] = useState(false);
 
   // Live Dhaka Time (GMT+6)
   useEffect(() => {
+    setMounted(true);
     const updateTime = () => {
-      const options = {
-        timeZone: "Asia/Dhaka",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-      };
-      setTimeString(new Intl.DateTimeFormat("en-US", options).format(new Date()));
+      try {
+        const options = {
+          timeZone: "Asia/Dhaka",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        };
+        setTimeString(new Intl.DateTimeFormat("en-US", options).format(new Date()));
+      } catch {
+        setTimeString(new Date().toLocaleTimeString());
+      }
     };
 
     updateTime();
@@ -199,8 +205,11 @@ const About = ({ isDarkMode, infoList: propInfoList }) => {
                     <Clock className="w-3.5 h-3.5 text-blue-400" />
                     <span>Local Time (GMT+6)</span>
                   </div>
-                  <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-widest">
-                    {timeString || "06:00:00 PM"}
+                  <div
+                    suppressHydrationWarning
+                    className="text-2xl sm:text-3xl font-extrabold text-white tracking-widest"
+                  >
+                    {mounted && timeString ? timeString : "06:00:00 PM"}
                   </div>
                 </div>
               </div>

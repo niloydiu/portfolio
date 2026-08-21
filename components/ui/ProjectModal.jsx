@@ -10,9 +10,9 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
   if (!project) return null;
 
   const projectImg =
-    (typeof project.bgImage === "string" ? project.bgImage : project.bgImage?.src) ||
-    project.bgImageName ||
-    "";
+    project.bgImage ||
+    (project.bgImageName && assets[project.bgImageName]) ||
+    null;
 
   return (
     <AnimatePresence>

@@ -35,16 +35,32 @@ export default function Page() {
       document.documentElement.classList.remove("dark");
     }
 
-    // Hydrate portfolio data dynamically from DB
+    // Hydrate portfolio data dynamically from DB with fallback merge
     fetch("/api/portfolio")
       .then((res) => {
         if (res.ok) return res.json();
         throw new Error("DB offline");
       })
       .then((data) => {
-        if (data.workData) setWorkData(data.workData);
-        if (data.serviceData) setServiceData(data.serviceData);
-        if (data.infoList) setInfoList(data.infoList);
+        if (data.workData && Array.isArray(data.workData)) {
+          // Merge with static data to preserve imported asset objects and rich categories
+          const mergedWork = data.workData.map((item) => {
+            const matchedStatic = staticWork.find(
+              (s) => s.id === item.id || s.title === item.title
+            );
+            return {
+              ...matchedStatic,
+              ...item,
+              bgImage: matchedStatic?.bgImage || (item.bgImageName && assets[item.bgImageName]) || assets.handsOn,
+              category: item.category || matchedStatic?.category || "Full-Stack",
+              techStack: item.techStack || matchedStatic?.techStack || [],
+              highlights: item.highlights || matchedStatic?.highlights || [],
+            };
+          });
+          setWorkData(mergedWork);
+        }
+        if (data.serviceData && Array.isArray(data.serviceData)) setServiceData(data.serviceData);
+        if (data.infoList && Array.isArray(data.infoList)) setInfoList(data.infoList);
       })
       .catch((err) => console.log("Hydration fallback: using static data", err));
   }, []);
