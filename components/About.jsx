@@ -3,221 +3,212 @@
 import { assets, infoList, toolsData } from "@/assets/assets";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Code, Palette, Zap } from "lucide-react";
+import { Code, Palette, Sparkles, Laptop } from "lucide-react";
+import AnimatedCounter from "@/components/ui/AnimatedCounter";
+import { fadeUp, scaleIn, staggerContainer } from "@/lib/motion";
 
 const About = ({ isDarkMode, infoList: propInfoList }) => {
   const displayInfoList = propInfoList || infoList;
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
 
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.6, -0.05, 0.01, 0.99],
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: [0.6, -0.05, 0.01, 0.99],
-      },
-    },
-  };
+  const skills = [
+    "JavaScript", "React.js", "Next.js", "TypeScript", "Tailwind CSS",
+    "Node.js", "Express.js", "Nest.js", "MongoDB", "PostgreSQL", "Git", "Figma"
+  ];
 
   return (
-    <section id="about" className="py-20 px-6 lg:px-12 scroll-mt-20 relative overflow-hidden">
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      className="py-24 px-6 lg:px-12 scroll-mt-20 relative overflow-hidden"
+    >
       {/* Background decoration with cyber-grid */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-gray-900 dark:to-slate-950 cyber-grid" />
-      <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-100/20 to-indigo-100/20 dark:from-blue-500/10 dark:to-purple-500/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-100/15 to-pink-100/15 dark:from-pink-500/10 dark:to-orange-500/10 rounded-full blur-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 cyber-grid pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 dark:bg-purple-500/10 rounded-full blur-3xl pointer-events-none"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
+      />
 
       <motion.div
         className="max-w-7xl mx-auto relative z-10"
-        variants={containerVariants}
+        variants={staggerContainer(0.12, 0.1)}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
       >
         {/* Section Header */}
-        <motion.div className="text-center mb-16" variants={itemVariants}>
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full text-sm font-medium text-blue-700 dark:text-blue-300 mb-4"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Code className="w-4 h-4" />
-            Introduction
-          </motion.div>
-          <h2 className="text-4xl lg:text-5xl font-bold gradient-text mb-4">
+        <motion.div className="text-center mb-16" variants={fadeUp}>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 rounded-full text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-300 mb-3 shadow-sm">
+            <Code className="w-3.5 h-3.5" />
+            <span>Introduction</span>
+          </div>
+          <h2 id="about-heading" className="fluid-h2 font-extrabold gradient-text mb-4">
             About Me
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mx-auto rounded-full" />
         </motion.div>
 
         {/* Main Content */}
-        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Image Section */}
           <motion.div
-            variants={cardVariants}
-            whileHover={{ scale: 1.02 }}
-            className="lg:col-span-1 flex justify-center lg:justify-start"
+            variants={scaleIn}
+            className="lg:col-span-4 flex justify-center lg:justify-start"
           >
-            <div className="relative cyber-corner p-2">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500 to-purple-600 rounded-2xl blur-md opacity-25 dark:opacity-40" />
-              <Image
-                src={assets.userImageNiloySM}
-                alt="Niloy's profile"
-                className="relative w-full max-w-xs mx-auto rounded-2xl shadow-2xl border border-blue-500/20 dark:border-purple-500/20"
-                priority
+            <div className="relative cyber-corner p-2 w-full max-w-sm">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl blur-md opacity-25 dark:opacity-40"
               />
+              <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-2xl bg-white dark:bg-slate-900">
+                <Image
+                  src={assets.userImageNiloySM}
+                  alt="Niloy Kumar Mohonta working on code"
+                  width={384}
+                  height={460}
+                  sizes="(max-width: 768px) 100vw, 384px"
+                  className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
+                  priority
+                />
+              </div>
             </div>
           </motion.div>
 
           {/* Content Section */}
-          <motion.div variants={itemVariants} className="lg:col-span-2 space-y-6">
-            <div>
-              <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-                Frontend developer from Bangladesh with a passion for creating responsive,
-                user-friendly web applications. Currently focusing on expanding my skills
-                in React ecosystem while exploring new technologies.
+          <motion.div variants={fadeUp} className="lg:col-span-8 space-y-6">
+            <div className="space-y-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+              <p>
+                Frontend developer from Bangladesh with a passion for creating fast, responsive,
+                and user-friendly web applications. Currently focusing on expanding my skills
+                in the modern React and Next.js ecosystems while building scalable full-stack solutions.
               </p>
-              <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-                I'm actively seeking opportunities to apply my frontend development skills
-                in a professional environment, with experience in HTML, CSS, JavaScript,
-                React, Next.js, and various backend technologies.
+              <p>
+                I actively seek opportunities to solve real-world problems through clean architecture,
+                accessible interface design, and modern web performance best practices.
               </p>
             </div>
 
-            {/* Quick Stats */}
+            {/* Quick Stats with Animated Counters */}
             <motion.div
-              className="grid grid-cols-2 gap-4"
-              variants={itemVariants}
+              className="grid grid-cols-2 gap-4 py-2"
+              variants={fadeUp}
             >
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 p-4 rounded-xl border border-blue-500/20 dark:border-blue-500/10 shadow-[0_2px_15px_rgba(59,130,246,0.05)]">
-                <div className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mb-1">36</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Public Repos</div>
+              <div className="glass-card p-5 rounded-2xl border border-blue-500/20 dark:border-blue-500/20 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-blue-400 mb-1 tracking-tight">
+                  <AnimatedCounter value={36} suffix="+" />
+                </div>
+                <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
+                  Public Repositories
+                </div>
               </div>
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/10 dark:to-pink-900/10 p-4 rounded-xl border border-purple-500/20 dark:border-purple-500/10 shadow-[0_2px_15px_rgba(168,85,247,0.05)]">
-                <div className="text-2xl font-extrabold text-purple-600 dark:text-purple-400 mb-1">2+</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Years Experience</div>
+
+              <div className="glass-card p-5 rounded-2xl border border-purple-500/20 dark:border-purple-500/20 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-3xl sm:text-4xl font-extrabold text-purple-600 dark:text-purple-400 mb-1 tracking-tight">
+                  <AnimatedCounter value={2} suffix="+ Years" />
+                </div>
+                <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
+                  Development Experience
+                </div>
               </div>
             </motion.div>
 
             {/* Info Cards */}
             <motion.div
               className="grid grid-cols-1 sm:grid-cols-3 gap-4"
-              variants={containerVariants}
+              variants={staggerContainer(0.08, 0.05)}
             >
-              {displayInfoList && displayInfoList.map(({ icon, iconDark, iconName, iconDarkName, title, description }, index) => {
-                const activeIcon = isDarkMode 
-                  ? (iconDark || assets[iconDarkName] || assets.code_icon_dark) 
-                  : (icon || assets[iconName] || assets.code_icon);
-                return (
-                  <motion.div
-                    key={index}
-                    variants={cardVariants}
-                    whileHover={{
-                      scale: 1.05,
-                    }}
-                    className="glass-card neon-border-glow cyber-corner p-6 rounded-2xl cursor-pointer group"
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                        <Image
-                          src={activeIcon}
-                          alt={title}
-                          className="w-6 h-6"
-                        />
-                      </div>
-                    </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    {title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {description}
-                  </p>
-                </motion.div>
-                );
-              })}
+              {displayInfoList &&
+                displayInfoList.map(
+                  ({ icon, iconDark, iconName, iconDarkName, title, description }, index) => {
+                    const activeIcon = isDarkMode
+                      ? iconDark || assets[iconDarkName] || assets.code_icon_dark
+                      : icon || assets[iconName] || assets.code_icon;
+                    return (
+                      <motion.div
+                        key={index}
+                        variants={scaleIn}
+                        whileHover={{ y: -4, scale: 1.02 }}
+                        className="glass-card neon-border-glow cyber-corner p-5 rounded-2xl group transition-all duration-300"
+                      >
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                            <Image
+                              src={activeIcon}
+                              alt=""
+                              aria-hidden="true"
+                              className="w-5 h-5"
+                            />
+                          </div>
+                        </div>
+                        <h3 className="font-semibold text-slate-900 dark:text-white mb-1.5 text-sm sm:text-base">
+                          {title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                          {description}
+                        </p>
+                      </motion.div>
+                    );
+                  }
+                )}
             </motion.div>
 
-            {/* Skills Section */}
-            <motion.div variants={itemVariants} className="mt-8">
-              <div className="flex items-center gap-2 mb-6">
-                <Code className="w-5 h-5 text-blue-600" />
-                <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
+            {/* Technical Skills Badges */}
+            <motion.div variants={fadeUp} className="pt-4">
+              <div className="flex items-center gap-2 mb-4">
+                <Laptop className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
                   Technical Skills
-                </h4>
+                </h3>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {[
-                  "JavaScript", "React.js", "Next.js", "Node.js", "Express.js",
-                  "MongoDB", "Tailwind CSS", "TypeScript", "Git", "Figma", "C++"
-                ].map((skill, index) => (
+              <div className="flex flex-wrap gap-2.5">
+                {skills.map((skill, index) => (
                   <motion.div
                     key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.05, duration: 0.3 }}
-                    className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 px-4 py-2 rounded-lg border border-blue-100 dark:border-blue-800 text-center"
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.03, duration: 0.25 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="px-3.5 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-blue-500/50 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-all duration-200 cursor-default shadow-sm"
                   >
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      {skill}
-                    </span>
+                    {skill}
                   </motion.div>
                 ))}
               </div>
             </motion.div>
 
             {/* Tools Section */}
-            <motion.div variants={itemVariants} className="mt-8">
-              <div className="flex items-center gap-2 mb-6">
-                <Palette className="w-5 h-5 text-purple-600" />
-                <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <motion.div variants={fadeUp} className="pt-2">
+              <div className="flex items-center gap-2 mb-4">
+                <Palette className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
                   Tools & Technologies
-                </h4>
+                </h3>
               </div>
-              <motion.div
-                className="flex flex-wrap gap-3"
-                variants={containerVariants}
-            >
-              {toolsData.map((tool, index) => (
+              <div className="flex flex-wrap gap-3">
+                {toolsData.map((tool, index) => (
                   <motion.div
-                  key={index}
-                    variants={cardVariants}
+                    key={index}
+                    variants={scaleIn}
                     whileHover={{
-                      scale: 1.1,
-                      rotate: [0, -5, 5, 0],
-                      transition: { duration: 0.3 }
+                      scale: 1.12,
+                      rotate: [0, -6, 6, 0],
+                      transition: { duration: 0.3 },
                     }}
-                    className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 glass-card rounded-xl hover:shadow-lg transition-all duration-300 cursor-pointer group"
+                    className="flex items-center justify-center w-12 h-12 glass-card rounded-xl border border-slate-200 dark:border-slate-800 hover:shadow-md transition-all duration-300 cursor-pointer group"
                   >
                     <Image
                       src={tool}
-                      alt="Tool"
-                      className="w-6 h-6 sm:w-8 sm:h-8 group-hover:scale-110 transition-transform duration-300"
+                      alt="Tool icon"
+                      className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
                     />
                   </motion.div>
                 ))}
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         </div>

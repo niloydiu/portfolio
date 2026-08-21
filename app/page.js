@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Services from "@/components/Services";
 import Work from "@/components/Work";
 import CyberParticles from "@/components/CyberParticles";
+import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 import { useEffect, useState } from "react";
 import { workData as staticWork, serviceData as staticService, infoList as staticInfo } from "@/assets/assets";
 
@@ -57,9 +58,10 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-background relative">
+      <ScrollProgressBar />
       <CyberParticles />
       <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-      <main>
+      <main id="main-content">
         <Header isDarkMode={isDarkMode} />
         <About isDarkMode={isDarkMode} infoList={infoList} />
         <Services isDarkMode={isDarkMode} serviceData={serviceData} />

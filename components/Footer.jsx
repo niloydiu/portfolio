@@ -1,47 +1,32 @@
 "use client";
 
 import { assets, socialLinks } from "@/assets/assets";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { Mail, Github, Linkedin, Twitter, Facebook } from "lucide-react";
+import { Mail, Github, Linkedin, Twitter, Facebook, ArrowUp } from "lucide-react";
 import { useState, useEffect } from "react";
+import MagneticButton from "@/components/ui/MagneticButton";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 const Footer = ({ isDarkMode }) => {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 300);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setShowBackToTop(window.scrollY > 400);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    // Set initial state
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: [0.6, -0.05, 0.01, 0.99],
-      },
-    },
-  };
 
   const socialIcons = {
     github: Github,
@@ -50,108 +35,111 @@ const Footer = ({ isDarkMode }) => {
     facebook: Facebook,
   };
 
-  return (
-    <footer className="relative mt-20 overflow-hidden">
-      {/* Background with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-gray-50 to-white dark:from-gray-900 dark:to-gray-800" />
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: shouldReduceMotion ? "auto" : "smooth",
+    });
+  };
 
-      {/* Decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-gradient-to-br from-blue-400/5 to-purple-400/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gradient-to-br from-indigo-400/5 to-pink-400/5 rounded-full blur-3xl" />
+  return (
+    <footer aria-label="Footer" className="relative mt-24 overflow-hidden border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/50 backdrop-blur-md">
+      {/* Subtle decorative glow elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          aria-hidden="true"
+          className="absolute top-0 left-1/4 w-72 h-72 bg-blue-500/5 dark:bg-blue-600/5 rounded-full blur-3xl"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute bottom-0 right-1/4 w-72 h-72 bg-purple-500/5 dark:bg-purple-600/5 rounded-full blur-3xl"
+        />
       </div>
 
       <motion.div
-        className="relative z-10 py-16 px-6 lg:px-12"
-        variants={containerVariants}
+        className="relative z-10 py-16 px-6 lg:px-12 max-w-6xl mx-auto"
+        variants={staggerContainer(0.1, 0.1)}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
       >
-        <div className="max-w-6xl mx-auto">
-          {/* Main footer content */}
-          <div className="text-center mb-12">
-            <motion.div variants={itemVariants} className="mb-6">
-              <Image
-                src={assets.logoNiloy}
-                alt="Niloy's logo"
-                className="w-32 h-auto mx-auto filter dark:invert"
-              />
-            </motion.div>
+        {/* Main footer content */}
+        <div className="text-center mb-12">
+          <motion.div variants={fadeUp} className="mb-6 flex justify-center">
+            <Image
+              src={assets.logoNiloy}
+              alt="Niloy's Logo"
+              className="h-10 w-auto filter dark:brightness-110"
+            />
+          </motion.div>
 
-            <motion.div
-              variants={itemVariants}
-              className="inline-flex items-center gap-3 px-6 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-full shadow-sm"
-            >
-              <Mail className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+          <motion.div variants={fadeUp}>
+            <MagneticButton strength={0.2}>
               <a
                 href="mailto:niloykumarmohonta@gmail.com"
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 font-medium"
+                aria-label="Email Niloy directly"
+                className="inline-flex items-center gap-2.5 px-6 py-3 min-h-[44px] bg-white dark:bg-slate-900/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-full shadow-sm hover:border-blue-500/50 transition-colors duration-200 text-sm font-medium text-slate-700 dark:text-slate-300"
               >
-                niloykumarmohonta@gmail.com
+                <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <span>niloykumarmohonta@gmail.com</span>
               </a>
-            </motion.div>
-          </div>
+            </MagneticButton>
+          </motion.div>
+        </div>
 
-          {/* Social links */}
-          <motion.div variants={itemVariants} className="flex justify-center gap-6 mb-12">
-            {socialLinks.map((site, index) => {
-              const Icon = socialIcons[site.name.toLowerCase()] || Mail;
-              return (
+        {/* Social links */}
+        <motion.div
+          variants={fadeUp}
+          className="flex justify-center items-center gap-4 mb-12 flex-wrap"
+        >
+          {socialLinks.map((site, index) => {
+            const Icon = socialIcons[site.name.toLowerCase()] || Mail;
+            return (
+              <MagneticButton key={index} strength={0.25}>
                 <motion.a
-                  key={index}
                   href={site.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  aria-label={`Visit Niloy's ${site.name} profile`}
+                  className="p-3.5 min-w-[44px] min-h-[44px] flex items-center justify-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500/50 transition-all duration-200 shadow-sm"
+                  whileHover={{ scale: 1.08, y: -2 }}
+                  whileTap={{ scale: 0.94 }}
                 >
-                  <Icon className="w-6 h-6" />
+                  <Icon className="w-5 h-5" />
                 </motion.a>
-              );
-            })}
-          </motion.div>
+              </MagneticButton>
+            );
+          })}
+        </motion.div>
 
-          {/* Divider */}
-          <motion.div
-            variants={itemVariants}
-            className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent mb-8"
-          />
+        {/* Divider */}
+        <motion.div
+          variants={fadeUp}
+          className="h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent mb-8"
+        />
 
-          {/* Bottom section */}
-          <motion.div
-            variants={itemVariants}
-            className="text-center"
-          >
-            <motion.p
-              className="text-gray-600 dark:text-gray-400 text-sm"
-              variants={itemVariants}
-            >
-              © {new Date().getFullYear()} Niloy Kumar Mohonta. All rights reserved.
-            </motion.p>
-          </motion.div>
-        </div>
+        {/* Bottom copyright notice */}
+        <motion.div variants={fadeUp} className="text-center">
+          <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-normal">
+            © {new Date().getFullYear()} Niloy Kumar Mohonta. All rights reserved.
+          </p>
+        </motion.div>
       </motion.div>
 
-      {/* Back to top button */}
+      {/* Floating Back to top button */}
       <AnimatePresence>
         {showBackToTop && (
           <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-8 right-8 p-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 group"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={scrollToTop}
+            aria-label="Scroll back to top of page"
+            className="fixed bottom-6 right-6 p-3.5 min-w-[44px] min-h-[44px] bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-full shadow-xl hover:shadow-2xl z-40 group focus-visible:ring-2 focus-visible:ring-blue-500"
+            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 10 }}
             whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileTap={{ scale: 0.92 }}
           >
-            <svg className="w-6 h-6 group-hover:-translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
+            <ArrowUp className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform duration-200" />
           </motion.button>
         )}
       </AnimatePresence>
