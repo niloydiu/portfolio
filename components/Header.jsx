@@ -1,10 +1,12 @@
 "use client";
 
-import { assets } from "@/assets/assets";
+import { assets, socialLinks } from "@/assets/assets";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { Mail, ArrowRight, Sparkles } from "lucide-react";
+import { Mail, ArrowRight, Sparkles, Copy, Check, Github, Linkedin, Twitter, Terminal } from "lucide-react";
+import { useState } from "react";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { useToast } from "@/components/ui/Toast";
 import {
   fadeUp,
   staggerContainer,
@@ -15,6 +17,8 @@ import {
 
 const Header = ({ isDarkMode }) => {
   const shouldReduceMotion = useReducedMotion();
+  const { showToast } = useToast();
+  const [copied, setCopied] = useState(false);
 
   const headlineWords = [
     { text: "Full", gradient: false },
@@ -22,6 +26,17 @@ const Header = ({ isDarkMode }) => {
     { text: "Web", gradient: true },
     { text: "Developer", gradient: true },
   ];
+
+  const techBadges = [
+    "TypeScript", "React.js", "Next.js", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "PostgreSQL"
+  ];
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("niloykumarmohonta@gmail.com");
+    setCopied(true);
+    showToast("Email address copied to clipboard!");
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <section
@@ -44,12 +59,12 @@ const Header = ({ isDarkMode }) => {
 
       <motion.div
         className="relative z-10 w-full max-w-5xl mx-auto text-center"
-        variants={staggerContainer(0.1, 0.1)}
+        variants={staggerContainer(0.08, 0.08)}
         initial="hidden"
         animate="show"
       >
         {/* Profile Image with Gentle Floating Loop */}
-        <motion.div variants={fadeUp} className="mb-6 relative inline-block">
+        <motion.div variants={fadeUp} className="mb-5 relative inline-block">
           <motion.div
             animate={shouldReduceMotion ? {} : floatingAnimation}
             className="relative"
@@ -77,20 +92,20 @@ const Header = ({ isDarkMode }) => {
           </motion.div>
         </motion.div>
 
-        {/* Greeting Badge */}
+        {/* Availability Badge */}
         <motion.div variants={fadeUp} className="mb-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-            <h3 className="text-xs sm:text-sm font-semibold tracking-wider text-blue-700 dark:text-blue-300 uppercase">
-              Hello, I'm <span className="font-bold text-slate-900 dark:text-white">Niloy</span>
-            </h3>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 dark:bg-emerald-950/40 border border-emerald-300/60 dark:border-emerald-700/60 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            <span className="text-xs font-semibold text-emerald-800 dark:text-emerald-300">
+              Available for full-time roles & freelance projects
+            </span>
           </div>
         </motion.div>
 
         {/* Word-by-word Animated Main Headline */}
         <motion.h1
           variants={wordRevealContainer}
-          className="fluid-h1 font-extrabold mb-5 tracking-tight text-slate-900 dark:text-white flex flex-wrap justify-center gap-x-3 gap-y-1"
+          className="fluid-h1 font-extrabold mb-4 tracking-tight text-slate-900 dark:text-white flex flex-wrap justify-center gap-x-3 gap-y-1"
         >
           {headlineWords.map((item, idx) => (
             <span key={idx} className="inline-block overflow-hidden py-1">
@@ -111,64 +126,115 @@ const Header = ({ isDarkMode }) => {
         {/* Description */}
         <motion.p
           variants={fadeUp}
-          className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
+          className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed font-normal"
         >
-          I build modern web applications using React.js, Next.js, and TypeScript.
-          Currently expanding my backend expertise with Nest.js and PostgreSQL while
-          delivering clean, scalable solutions.
+          I build high-performance web applications using React.js, Next.js, and TypeScript,
+          delivering scalable backend APIs with clean, maintainable architecture.
         </motion.p>
+
+        {/* Tech Stack Ticker / Badges */}
+        <motion.div
+          variants={fadeUp}
+          className="flex justify-center items-center gap-2 flex-wrap max-w-2xl mx-auto mb-9"
+        >
+          {techBadges.map((tech) => (
+            <span
+              key={tech}
+              className="text-[11px] sm:text-xs font-mono font-medium px-2.5 py-1 bg-slate-100 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm"
+            >
+              {tech}
+            </span>
+          ))}
+        </motion.div>
 
         {/* Interactive CTA Buttons */}
         <motion.div
           variants={fadeUp}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-3.5 justify-center items-center mb-8"
         >
           <MagneticButton strength={0.25}>
             <motion.a
-              href="#contact"
+              href="#work"
               className="group px-7 py-3.5 min-h-[44px] bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] transition-all duration-300 flex items-center justify-center gap-2.5 text-sm sm:text-base"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              <Mail className="w-4 h-4" />
-              <span>Get in touch</span>
+              <span>Explore Projects</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </motion.a>
           </MagneticButton>
 
           <MagneticButton strength={0.25}>
-            <motion.a
-              href="#work"
-              className="group px-7 py-3.5 min-h-[44px] bg-white/70 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-semibold rounded-xl hover:border-blue-500/50 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all duration-300 flex items-center justify-center gap-2.5 text-sm sm:text-base shadow-sm"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+            <button
+              onClick={handleCopyEmail}
+              aria-label="Copy email address"
+              className="group px-6 py-3.5 min-h-[44px] bg-white/80 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold rounded-xl hover:border-blue-500/50 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base shadow-sm"
             >
-              <span>View my work</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-            </motion.a>
+              {copied ? (
+                <>
+                  <Check className="w-4 h-4 text-emerald-500" />
+                  <span className="text-emerald-600 dark:text-emerald-400">Email Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-4 h-4 text-slate-500 group-hover:text-blue-500 transition-colors" />
+                  <span>Copy Email</span>
+                </>
+              )}
+            </button>
           </MagneticButton>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {/* Hero Quick Socials */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-14 flex justify-center"
-          aria-hidden="true"
+          variants={fadeUp}
+          className="flex justify-center items-center gap-3"
         >
-          <a
-            href="#about"
-            aria-label="Scroll to About Me section"
-            className="p-2 rounded-full focus-visible:ring-2 focus-visible:ring-blue-500"
-          >
-            <div className="w-5 h-8 border-2 border-slate-400 dark:border-slate-600 rounded-full flex justify-center bg-white/30 dark:bg-black/30 backdrop-blur-sm">
-              <motion.div
-                animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                className="w-1 h-2 bg-slate-600 dark:bg-slate-300 rounded-full mt-1.5"
-              />
-            </div>
-          </a>
+          <MagneticButton strength={0.2}>
+            <a
+              href="https://github.com/niloydiu"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub Profile"
+              className="p-2.5 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shadow-sm"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+          </MagneticButton>
+
+          <MagneticButton strength={0.2}>
+            <a
+              href="https://www.linkedin.com/in/niloykumarmohonta000/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
+              className="p-2.5 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shadow-sm"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+          </MagneticButton>
+
+          <MagneticButton strength={0.2}>
+            <a
+              href="https://x.com/niloykmohonta"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter Profile"
+              className="p-2.5 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shadow-sm"
+            >
+              <Twitter className="w-4 h-4" />
+            </a>
+          </MagneticButton>
+
+          <MagneticButton strength={0.2}>
+            <a
+              href="mailto:niloykumarmohonta@gmail.com"
+              aria-label="Send direct email"
+              className="p-2.5 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shadow-sm"
+            >
+              <Mail className="w-4 h-4" />
+            </a>
+          </MagneticButton>
         </motion.div>
       </motion.div>
     </section>

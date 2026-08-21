@@ -10,11 +10,14 @@ import Services from "@/components/Services";
 import Work from "@/components/Work";
 import CyberParticles from "@/components/CyberParticles";
 import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
+import CommandPalette from "@/components/ui/CommandPalette";
+import { ToastProvider } from "@/components/ui/Toast";
 import { useEffect, useState } from "react";
 import { workData as staticWork, serviceData as staticService, infoList as staticInfo } from "@/assets/assets";
 
 export default function Page() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [workData, setWorkData] = useState(staticWork);
   const [serviceData, setServiceData] = useState(staticService);
   const [infoList, setInfoList] = useState(staticInfo);
@@ -57,19 +60,32 @@ export default function Page() {
   }, [isDarkMode]);
 
   return (
-    <div className="min-h-screen bg-background relative">
-      <ScrollProgressBar />
-      <CyberParticles />
-      <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
-      <main id="main-content">
-        <Header isDarkMode={isDarkMode} />
-        <About isDarkMode={isDarkMode} infoList={infoList} />
-        <Services isDarkMode={isDarkMode} serviceData={serviceData} />
-        <Work isDarkMode={isDarkMode} workData={workData} />
-        <Blog />
-        <Contact isDarkMode={isDarkMode} />
-      </main>
-      <Footer isDarkMode={isDarkMode} />
-    </div>
+    <ToastProvider>
+      <div className="min-h-screen bg-background relative">
+        <ScrollProgressBar />
+        <CyberParticles />
+        <CommandPalette
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
+          isOpen={isCommandPaletteOpen}
+          setIsOpen={setIsCommandPaletteOpen}
+          workData={workData}
+        />
+        <Navbar
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
+          onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+        />
+        <main id="main-content">
+          <Header isDarkMode={isDarkMode} />
+          <About isDarkMode={isDarkMode} infoList={infoList} />
+          <Services isDarkMode={isDarkMode} serviceData={serviceData} />
+          <Work isDarkMode={isDarkMode} workData={workData} />
+          <Blog />
+          <Contact isDarkMode={isDarkMode} />
+        </main>
+        <Footer isDarkMode={isDarkMode} />
+      </div>
+    </ToastProvider>
   );
 }

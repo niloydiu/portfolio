@@ -7,7 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Menu, X, Sun, Moon, Mail, ArrowRight } from "lucide-react";
 import MagneticButton from "@/components/ui/MagneticButton";
 
-const Navbar = ({ isDarkMode, setIsDarkMode }) => {
+const Navbar = ({ isDarkMode, setIsDarkMode, onOpenCommandPalette }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("top");
@@ -172,7 +172,21 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
             </div>
 
             {/* Right side actions */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              {/* Command Palette Trigger Button */}
+              <motion.button
+                onClick={onOpenCommandPalette}
+                aria-label="Open command palette (Cmd+K)"
+                className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-blue-500/50 transition-all shadow-sm"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+              >
+                <kbd className="font-mono text-[10px] bg-white dark:bg-slate-800 px-1 py-0.5 rounded border border-slate-200 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300">
+                  ⌘K
+                </kbd>
+                <span>Menu</span>
+              </motion.button>
+
               {/* Theme toggle */}
               <motion.button
                 onClick={() => setIsDarkMode(!isDarkMode)}
