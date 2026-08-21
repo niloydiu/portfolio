@@ -3,19 +3,62 @@
 import { assets, infoList, toolsData } from "@/assets/assets";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
-import { Code, Palette, Sparkles, Laptop, Terminal, UserCheck } from "lucide-react";
+import { useState, useEffect } from "react";
+import {
+  Code,
+  Palette,
+  Sparkles,
+  Laptop,
+  Terminal,
+  UserCheck,
+  Clock,
+  Globe2,
+  Cpu,
+  Layers,
+  ShieldCheck,
+  Zap,
+  CheckCircle2,
+  ExternalLink,
+} from "lucide-react";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import DevTerminal from "@/components/ui/DevTerminal";
+import SpotlightCard from "@/components/ui/SpotlightCard";
 import { fadeUp, scaleIn, staggerContainer } from "@/lib/motion";
 
 const About = ({ isDarkMode, infoList: propInfoList }) => {
-  const displayInfoList = propInfoList || infoList;
-  const [activeTab, setActiveTab] = useState("profile"); // 'profile' | 'terminal'
+  const [timeString, setTimeString] = useState("");
+  const [activeConsole, setActiveConsole] = useState(false);
 
-  const skills = [
-    "JavaScript", "React.js", "Next.js", "TypeScript", "Tailwind CSS",
-    "Node.js", "Express.js", "Nest.js", "MongoDB", "PostgreSQL", "Git", "Figma"
+  // Live Dhaka Time (GMT+6)
+  useEffect(() => {
+    const updateTime = () => {
+      const options = {
+        timeZone: "Asia/Dhaka",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      };
+      setTimeString(new Intl.DateTimeFormat("en-US", options).format(new Date()));
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const coreSkills = [
+    { name: "React.js / Next.js", level: "Senior", pct: 95, color: "from-blue-500 to-cyan-500" },
+    { name: "TypeScript / JavaScript", level: "Advanced", pct: 92, color: "from-blue-600 to-indigo-500" },
+    { name: "Tailwind CSS / Motion", level: "Expert", pct: 96, color: "from-teal-400 to-emerald-500" },
+    { name: "Node.js / Express.js", level: "Proficient", pct: 85, color: "from-emerald-500 to-teal-600" },
+    { name: "MongoDB / PostgreSQL", level: "Proficient", pct: 82, color: "from-purple-500 to-pink-500" },
+  ];
+
+  const engineeringPrinciples = [
+    { icon: Zap, title: "Sub-Second Latency", desc: "Optimized Core Web Vitals, tree-shaking, and zero layout shift." },
+    { icon: ShieldCheck, title: "Clean Architecture", desc: "Modular, maintainable code with strict typing and unit reliability." },
+    { icon: Layers, title: "Accessible by Default", desc: "Keyboard navigable, WCAG AA contrast compliant, and screen-reader ready." },
   ];
 
   return (
@@ -24,248 +67,298 @@ const About = ({ isDarkMode, infoList: propInfoList }) => {
       aria-labelledby="about-heading"
       className="py-24 px-6 lg:px-12 scroll-mt-20 relative overflow-hidden"
     >
-      {/* Background decoration with cyber-grid */}
+      {/* Ambient background decoration */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 cyber-grid pointer-events-none" />
       <div
         aria-hidden="true"
-        className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 dark:bg-purple-500/10 rounded-full blur-3xl pointer-events-none"
+        className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500/10 dark:bg-purple-500/10 rounded-full blur-3xl pointer-events-none"
       />
       <div
         aria-hidden="true"
-        className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
+        className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/10 dark:bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
       />
 
       <motion.div
         className="max-w-7xl mx-auto relative z-10"
-        variants={staggerContainer(0.12, 0.1)}
+        variants={staggerContainer(0.1, 0.08)}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: true, amount: 0.1 }}
       >
         {/* Section Header */}
-        <motion.div className="text-center mb-10" variants={fadeUp}>
+        <motion.div className="text-center mb-16" variants={fadeUp}>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-800/60 rounded-full text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-300 mb-3 shadow-sm">
             <Code className="w-3.5 h-3.5" />
-            <span>Introduction</span>
+            <span>Developer Overview</span>
           </div>
           <h2 id="about-heading" className="fluid-h2 font-extrabold gradient-text mb-4">
-            About Me
+            Engineered for Impact
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mx-auto rounded-full" />
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-5 leading-relaxed font-normal">
+            A look into my engineering philosophy, technical stack, live metrics, and interactive console.
+          </p>
         </motion.div>
 
-        {/* View Mode Switcher */}
-        <motion.div variants={fadeUp} className="flex justify-center mb-10">
-          <div className="inline-flex items-center p-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-inner">
-            <button
-              onClick={() => setActiveTab("profile")}
-              className={`flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-200 ${
-                activeTab === "profile"
-                  ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-md"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-              }`}
+        {/* Master Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Bento 1: Profile & Bio Card (Spans 2 columns on lg) */}
+          <motion.div variants={scaleIn} className="lg:col-span-2">
+            <SpotlightCard
+              spotlightColor="rgba(59, 130, 246, 0.15)"
+              className="bento-card p-6 sm:p-8 h-full flex flex-col justify-between"
             >
-              <UserCheck className="w-4 h-4" />
-              <span>Visual Overview</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab("terminal")}
-              className={`flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-200 ${
-                activeTab === "terminal"
-                  ? "bg-white dark:bg-slate-800 text-purple-600 dark:text-purple-400 shadow-md"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-              }`}
-            >
-              <Terminal className="w-4 h-4" />
-              <span>Interactive Console</span>
-              <span className="hidden sm:inline-block text-[10px] font-mono px-1.5 py-0.2 bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 rounded">
-                CLI
-              </span>
-            </button>
-          </div>
-        </motion.div>
-
-        {/* Content Tabs */}
-        <AnimatePresence mode="wait">
-          {activeTab === "profile" ? (
-            <motion.div
-              key="profile"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.25 }}
-              className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start"
-            >
-              {/* Image Section */}
-              <motion.div
-                variants={scaleIn}
-                className="lg:col-span-4 flex justify-center lg:justify-start"
-              >
-                <div className="relative cyber-corner p-2 w-full max-w-sm">
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-2xl blur-md opacity-25 dark:opacity-40"
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6">
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-800 shadow-xl flex-shrink-0 bg-slate-900">
+                  <Image
+                    src={assets.userImageNiloySM}
+                    alt="Niloy Kumar Mohonta"
+                    fill
+                    sizes="112px"
+                    className="object-cover"
+                    priority
                   />
-                  <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-2xl bg-white dark:bg-slate-900">
-                    <Image
-                      src={assets.userImageNiloySM}
-                      alt="Niloy Kumar Mohonta working on code"
-                      width={384}
-                      height={460}
-                      sizes="(max-width: 768px) 100vw, 384px"
-                      className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
-                      priority
-                    />
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Content Section */}
-              <motion.div variants={fadeUp} className="lg:col-span-8 space-y-6">
-                <div className="space-y-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                  <p>
-                    Frontend developer from Bangladesh with a passion for creating fast, responsive,
-                    and user-friendly web applications. Currently focusing on expanding my skills
-                    in the modern React and Next.js ecosystems while building scalable full-stack solutions.
-                  </p>
-                  <p>
-                    I actively seek opportunities to solve real-world problems through clean architecture,
-                    accessible interface design, and modern web performance best practices.
-                  </p>
                 </div>
 
-                {/* Quick Stats with Animated Counters */}
-                <motion.div
-                  className="grid grid-cols-2 gap-4 py-2"
-                  variants={fadeUp}
-                >
-                  <div className="glass-card p-5 rounded-2xl border border-blue-500/20 dark:border-blue-500/20 shadow-sm hover:shadow-md transition-all duration-300">
-                    <div className="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-blue-400 mb-1 tracking-tight">
-                      <AnimatedCounter value={36} suffix="+" />
-                    </div>
-                    <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
-                      Public Repositories
-                    </div>
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-mono font-semibold rounded-full mb-2">
+                    <span>Full-Stack & Frontend Engineer</span>
                   </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                    Niloy Kumar Mohonta
+                  </h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                    Building scalable, responsive, and delightful web systems.
+                  </p>
+                </div>
+              </div>
 
-                  <div className="glass-card p-5 rounded-2xl border border-purple-500/20 dark:border-purple-500/20 shadow-sm hover:shadow-md transition-all duration-300">
-                    <div className="text-3xl sm:text-4xl font-extrabold text-purple-600 dark:text-purple-400 mb-1 tracking-tight">
-                      <AnimatedCounter value={2} suffix="+ Years" />
-                    </div>
-                    <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
-                      Development Experience
-                    </div>
-                  </div>
-                </motion.div>
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6 font-normal">
+                I specialize in crafting high-velocity web applications using the modern React & Next.js ecosystem.
+                Whether designing frictionless user interfaces, optimizing Core Web Vitals, or architecting secure REST APIs with Node.js and MongoDB, I build software that makes a real commercial impact.
+              </p>
 
-                {/* Info Cards */}
-                <motion.div
-                  className="grid grid-cols-1 sm:grid-cols-3 gap-4"
-                  variants={staggerContainer(0.08, 0.05)}
-                >
-                  {displayInfoList &&
-                    displayInfoList.map(
-                      ({ icon, iconDark, iconName, iconDarkName, title, description }, index) => {
-                        const activeIcon = isDarkMode
-                          ? iconDark || assets[iconDarkName] || assets.code_icon_dark
-                          : icon || assets[iconName] || assets.code_icon;
-                        return (
-                          <motion.div
-                            key={index}
-                            variants={scaleIn}
-                            whileHover={{ y: -4, scale: 1.02 }}
-                            className="glass-card neon-border-glow cyber-corner p-5 rounded-2xl group transition-all duration-300"
-                          >
-                            <div className="flex items-center gap-3 mb-3">
-                              <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                                <Image
-                                  src={activeIcon}
-                                  alt=""
-                                  aria-hidden="true"
-                                  className="w-5 h-5"
-                                />
-                              </div>
-                            </div>
-                            <h3 className="font-semibold text-slate-900 dark:text-white mb-1.5 text-sm sm:text-base">
-                              {title}
-                            </h3>
-                            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                              {description}
-                            </p>
-                          </motion.div>
-                        );
-                      }
-                    )}
-                </motion.div>
+              {/* Quick Key Metrics */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 pt-4 border-t border-slate-200/80 dark:border-slate-800/80">
+                <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/60 dark:border-slate-800/60">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-blue-600 dark:text-blue-400">
+                    <AnimatedCounter value={36} suffix="+" />
+                  </div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+                    GitHub Repos
+                  </div>
+                </div>
 
-                {/* Technical Skills Badges */}
-                <motion.div variants={fadeUp} className="pt-4">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Laptop className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                      Technical Skills
-                    </h3>
+                <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/60 dark:border-slate-800/60">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-purple-600 dark:text-purple-400">
+                    <AnimatedCounter value={2} suffix="+ Yrs" />
                   </div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+                    Development Exp
+                  </div>
+                </div>
 
-                  <div className="flex flex-wrap gap-2.5">
-                    {skills.map((skill, index) => (
-                      <motion.div
-                        key={skill}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.03, duration: 0.25 }}
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        className="px-3.5 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-blue-500/50 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-all duration-200 cursor-default shadow-sm"
-                      >
-                        {skill}
-                      </motion.div>
-                    ))}
+                <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/60 dark:border-slate-800/60 col-span-2 sm:col-span-1">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">
+                    100%
                   </div>
-                </motion.div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+                    Commitment to Craft
+                  </div>
+                </div>
+              </div>
+            </SpotlightCard>
+          </motion.div>
 
-                {/* Tools Section */}
-                <motion.div variants={fadeUp} className="pt-2">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Palette className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                      Tools & Technologies
-                    </h3>
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    {toolsData.map((tool, index) => (
-                      <motion.div
-                        key={index}
-                        variants={scaleIn}
-                        whileHover={{
-                          scale: 1.12,
-                          rotate: [0, -6, 6, 0],
-                          transition: { duration: 0.3 },
-                        }}
-                        className="flex items-center justify-center w-12 h-12 glass-card rounded-xl border border-slate-200 dark:border-slate-800 hover:shadow-md transition-all duration-300 cursor-pointer group"
-                      >
-                        <Image
-                          src={tool}
-                          alt="Tool icon"
-                          className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="terminal"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.25 }}
-              className="max-w-4xl mx-auto"
+          {/* Bento 2: Live Location & Availability Widget */}
+          <motion.div variants={scaleIn}>
+            <SpotlightCard
+              spotlightColor="rgba(16, 185, 129, 0.15)"
+              className="bento-card p-6 sm:p-8 h-full flex flex-col justify-between"
             >
-              <DevTerminal />
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                    <Globe2 className="w-4 h-4" />
+                    <span>Location & Time</span>
+                  </div>
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                </div>
+
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                  Dhaka, Bangladesh
+                </h3>
+
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6">
+                  Available for global remote contracts and full-time engineering roles.
+                </p>
+
+                {/* Digital Clock Widget */}
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-center font-mono shadow-inner mb-6">
+                  <div className="text-xs text-slate-400 mb-1 flex items-center justify-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-blue-400" />
+                    <span>Local Time (GMT+6)</span>
+                  </div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-widest">
+                    {timeString || "06:00:00 PM"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 flex-shrink-0" />
+                <span className="text-xs font-semibold text-emerald-800 dark:text-emerald-300">
+                  Ready to start immediately
+                </span>
+              </div>
+            </SpotlightCard>
+          </motion.div>
+
+          {/* Bento 3: Tech Radar & Competencies */}
+          <motion.div variants={scaleIn}>
+            <SpotlightCard
+              spotlightColor="rgba(99, 102, 241, 0.15)"
+              className="bento-card p-6 sm:p-8 h-full flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-4">
+                  <Cpu className="w-4 h-4" />
+                  <span>Technical Proficiency</span>
+                </div>
+
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+                  Core Stack Radar
+                </h3>
+
+                <div className="space-y-3.5">
+                  {coreSkills.map((skill) => (
+                    <div key={skill.name}>
+                      <div className="flex justify-between text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
+                        <span>{skill.name}</span>
+                        <span className="font-mono text-slate-500">{skill.level}</span>
+                      </div>
+                      <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.pct}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, ease: "easeOut" }}
+                          className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-mono text-slate-500">
+                <span>Learning: Nest.js • Docker</span>
+                <span className="text-blue-500 font-semibold">2026 Focus</span>
+              </div>
+            </SpotlightCard>
+          </motion.div>
+
+          {/* Bento 4: Engineering Principles */}
+          <motion.div variants={scaleIn}>
+            <SpotlightCard
+              spotlightColor="rgba(168, 85, 247, 0.15)"
+              className="bento-card p-6 sm:p-8 h-full flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-4">
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Engineering Standard</span>
+                </div>
+
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+                  How I Build Software
+                </h3>
+
+                <div className="space-y-4">
+                  {engineeringPrinciples.map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <div key={idx} className="flex items-start gap-3">
+                        <div className="p-2 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-0.5">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                            {item.title}
+                          </h4>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5">
+                            {item.desc}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <span className="text-xs font-mono text-slate-500">Zero Shortcuts • High Standards</span>
+              </div>
+            </SpotlightCard>
+          </motion.div>
+
+          {/* Bento 5: Interactive Dev Terminal Toggle & Console */}
+          <motion.div variants={scaleIn}>
+            <SpotlightCard
+              spotlightColor="rgba(59, 130, 246, 0.15)"
+              className="bento-card p-6 sm:p-8 h-full flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                    <Terminal className="w-4 h-4" />
+                    <span>Developer CLI</span>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20">
+                    Interactive
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                  Try Niloy's Console
+                </h3>
+
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6">
+                  Test live commands, query skills, or inspect contact channels right inside an emulated terminal.
+                </p>
+
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-left font-mono text-xs text-slate-300 space-y-1.5 mb-6">
+                  <p className="text-emerald-400">❯ niloy --version</p>
+                  <p className="text-slate-400 pl-3">v2.4.0 (Full-Stack Engineer)</p>
+                  <p className="text-emerald-400">❯ sudo hire --now</p>
+                  <p className="text-blue-400 pl-3">✨ Priority pipeline ready...</p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setActiveConsole(!activeConsole)}
+                className="w-full py-2.5 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
+              >
+                <Terminal className="w-4 h-4" />
+                <span>{activeConsole ? "Hide Terminal" : "Launch Terminal"}</span>
+              </button>
+            </SpotlightCard>
+          </motion.div>
+        </div>
+
+        {/* Expandable Live Developer Console View */}
+        <AnimatePresence>
+          {activeConsole && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, y: 20 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: 20 }}
+              transition={{ duration: 0.35 }}
+              className="mt-8 overflow-hidden"
+            >
+              <div className="max-w-4xl mx-auto">
+                <DevTerminal />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
