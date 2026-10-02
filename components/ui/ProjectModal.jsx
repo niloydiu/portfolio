@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { X, ExternalLink, Github, Layers, Cpu, CheckCircle2, ArrowUpRight } from "lucide-react";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { assets } from "@/assets/assets";
 
 const ProjectModal = ({ project, isOpen, onClose }) => {
   if (!project) return null;

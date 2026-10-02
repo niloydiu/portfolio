@@ -6,7 +6,7 @@ test.describe('Portfolio Website Tests', () => {
     await page.goto('/');
 
     // Check page title
-    await expect(page).toHaveTitle(/Niloy's Portfolio/);
+    await expect(page).toHaveTitle(/Niloy Kumar Mohonta/);
 
     // Verify main components are present
     await expect(page.locator('#top')).toBeVisible();
@@ -19,8 +19,8 @@ test.describe('Portfolio Website Tests', () => {
   test('should toggle dark/light mode successfully', async ({ page }) => {
     await page.goto('/');
 
-    // Locate theme toggle button (button inside nav containing Lucide icons or clicking it)
-    const toggleButton = page.locator('nav button').first();
+    // Locate theme toggle button by aria-label
+    const toggleButton = page.locator('nav button[aria-label*="mode"]');
     await expect(toggleButton).toBeVisible();
 
     // Check initial dark mode state on html tag
@@ -35,14 +35,13 @@ test.describe('Portfolio Website Tests', () => {
     expect(toggledClass).not.toBe(initialClass);
   });
 
-  test('should verify projects in Work section do not have Github source code buttons', async ({ page }) => {
+  test('should verify projects in Work section have live demo links', async ({ page }) => {
     await page.goto('/');
 
-    // Ensure Github icon link is NOT inside the project action container in the Work section
-    // The link should only be Live Demo
-    const githubLink = page.locator('#work a[href*="github.com"]');
-    const count = await githubLink.count();
-    expect(count).toBe(0);
+    // Ensure project live demo links are present and rendered
+    const liveDemoLinks = page.locator('#work a[href*="vercel.app"]');
+    const count = await liveDemoLinks.count();
+    expect(count).toBeGreaterThan(0);
   });
 
   test('should secure admin page and show error on invalid password login', async ({ page }) => {

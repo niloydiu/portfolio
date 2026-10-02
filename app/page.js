@@ -13,7 +13,7 @@ import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 import CommandPalette from "@/components/ui/CommandPalette";
 import { ToastProvider } from "@/components/ui/Toast";
 import { useEffect, useState } from "react";
-import { workData as staticWork, serviceData as staticService, infoList as staticInfo } from "@/assets/assets";
+import { assets, workData as staticWork, serviceData as staticService, infoList as staticInfo } from "@/assets/assets";
 
 export default function Page() {
   const [isDarkMode, setIsDarkMode] = useState(false);

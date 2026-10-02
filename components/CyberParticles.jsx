@@ -21,15 +21,6 @@ export default function CyberParticles() {
     let mouse = { x: null, y: null, radius: 140 };
     let isVisible = true;
 
-    // Setup canvas size
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      init();
-    };
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas, { passive: true });
-
     // Track mouse with rAF throttle
     let mouseTicking = false;
     const handleMouseMove = (event) => {
@@ -104,7 +95,15 @@ export default function CyberParticles() {
         particles.push(new Particle());
       }
     };
-    init();
+
+    // Setup canvas size
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    };
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas, { passive: true });
 
     const connect = () => {
       const len = particles.length;
