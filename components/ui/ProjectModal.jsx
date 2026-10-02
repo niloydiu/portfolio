@@ -15,6 +15,15 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
     (project.bgImageName && assets[project.bgImageName]) ||
     null;
 
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
